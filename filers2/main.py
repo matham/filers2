@@ -1,8 +1,8 @@
-'''Ceed App
+"""Ceed App
 =====================
 
 The main module that runs the GUI.
-'''
+"""
 import filers2
 
 from functools import partial
@@ -67,7 +67,7 @@ class Filers2App(BaseKivyApp):
         super(Filers2App, self).__init__(**kwargs)
 
     def build(self):
-        base = dirname(__file__)
+        base = dirname(filers2.__file__)
         Builder.load_file(join(base, 'filers2_style.kv'))
 
         self.yesno_prompt = Factory.FlatYesNoPrompt()
