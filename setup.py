@@ -32,7 +32,7 @@ setup(
     install_requires=['base_kivy_app', 'ffpyplayer', 'kivy', 'psutil'],
     extras_require={
         'dev': ['pytest>=3.6', 'pytest-cov', 'flake8', 'sphinx-rtd-theme',
-                'coveralls', 'trio', 'pytest-trio'],
+                'coveralls', 'trio', 'pytest-trio', 'pyinstaller'],
     },
     package_data={'filers2': ['*.kv', '**/*.kv']},
     project_urls={
