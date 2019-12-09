@@ -9,9 +9,9 @@ recording:
       file_fmt: ''
       icodec: ''
       metadata_play: ['', 0, 0, 0]
-      metadata_play_used: ['', 0, 0, 0]
-      play_filename: ''
-      use_dshow: true
+      metadata_play_used: [yuv420p, 2160, 3840, 29.75]
+      play_filename: C:\Users\Matthew Einhorn\Downloads\VID_20181202_234931.mp4
+      use_dshow: false
     image_file_recorder:
       compression: raw
       extension: tiff

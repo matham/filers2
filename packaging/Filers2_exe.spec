@@ -17,10 +17,12 @@ kwargs['hiddenimports'].extend([
     'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
     'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
     'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
-    'ffpyplayer.player.player', 'ffpyplayer.player.queue'])
+    'ffpyplayer.player.player', 'ffpyplayer.player.queue',
+    'numpy.random.common', 'numpy.random.bounded_integers',
+    'numpy.random.entropy'])
 
 
-a = Analysis(['../filers2/main.py'],
+a = Analysis(['../filers2/run_app.py'],
              pathex=['.'],
              datas=base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas(),
              hookspath=hookspath(),
@@ -45,4 +47,5 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True )
+          console=True,
+          icon='..\\doc\\source\\images\\filers2_icon.ico')

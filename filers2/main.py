@@ -1,7 +1,7 @@
-"""Ceed App
+"""Filers2 App
 =====================
 
-The main module that runs the GUI.
+The main module that provides the app that runs the GUI.
 """
 import filers2
 
@@ -103,7 +103,3 @@ def run_app():
     """
     cpl_media.error_callback = report_exception_in_app
     return run_cpl_app(Filers2App)
-
-
-if __name__ == '__main__':
-    run_app()
