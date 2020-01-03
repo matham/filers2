@@ -3,6 +3,8 @@
 #:import pretty_space base_kivy_app.utils.pretty_space
 #:import pretty_time base_kivy_app.utils.pretty_time
 
+<RelativeStencilLayout@RelativeLayout+StencilView>
+
 <PlayersContainerWidget>:
     size_hint_min: self.minimum_size
 
@@ -84,6 +86,7 @@
     orientation: 'vertical'
     size_hint_min: self.minimum_size
     image_display: image_display
+    spacing: '5dp'
     BoxLayout:
         size_hint_y: None
         size_hint_min_x: self.minimum_width
@@ -97,6 +100,7 @@
                 pos: self.pos
                 size: self.size
         ThemedSpinner:
+            disabled: pin_btn.state == 'down'
             size_hint_x: None
             width: self.minimum_width
             values: list(root.player.player_to_raw_name_map)
@@ -111,6 +115,11 @@
             on_release: root.player.player.play() if self.state == 'down' else root.player.player.stop()
         FlatImageButton:
             scale_down_color: True
+            source: 'rotate-right-variant.png'
+            flat_color: app.theme.accent
+            on_release: image_display.rotate_right_reposition()
+        FlatImageButton:
+            scale_down_color: True
             source: 'flat_dots_vertical.png'
             flat_color: app.theme.accent
             ffmpeg_dropdown: ffmpeg.__self__
@@ -119,8 +128,20 @@
             client_dropdown: client.__self__
             rtv_dropdown: rtv.__self__
             on_release: getattr(self, '{}_dropdown'.format(root.player.player_name)).open(self)
+        FlatImageToggleButton:
+            id: pin_btn
+            scale_down_color: True
+            source: 'flat_pin.png' if self.state == 'normal' else 'flat_pin_off.png'
+            flat_color: app.theme.accent
+            on_release:
+                if self.state == 'down': self._old_settings_parent = root.player.player_settings.parent
+                root.player.player_settings.parent.remove_widget(root.player.player_settings)
+                if self.state == 'down': settings_pin_container.add_widget(root.player.player_settings)
+                if self.state == 'normal': self._old_settings_parent.add_widget(root.player.player_settings)
         FlatDivider:
             color: app.theme.divider
+        ThemedSizedLabel:
+            text: 'Record:'
         ThemedSpinner:
             size_hint_x: None
             width: self.minimum_width
@@ -243,8 +264,19 @@
             on_kv_post:
                 self.settings_container.add_widget(root.player.server_recorder_settings)
                 self.parent.remove_widget(self)
-    RelativeLayout:
+    BoxLayout:
+        id: settings_pin_container
+        size_hint_y: None
+        height: self.minimum_height
+        canvas:
+            Color:
+                rgba: app.theme.primary_text
+            Rectangle:
+                size: self.size
+                pos: self.pos
+    RelativeStencilLayout:
         size_hint_min_y: '200dp'
+        on_size: image_display.reload_buffer()
         canvas:
             Color:
                 rgba: [0, 0, 0, 1]
@@ -253,11 +285,12 @@
         BufferImage:
             id: image_display
             auto_bring_to_front: False
-            available_size: self.size
-            on_size: if self.img is not None: self.update_img(self.img)
+            available_size: self.parent.size
+            size: self.image_size
+            size_hint: None, None
 
-            do_scale: True
-            do_translation: True, True
-            do_rotation: True
-
-
+            do_scale: False
+            do_translation: False, False
+            do_rotation: False
+            on_rotation: root.player.display_rotation = self.rotation
+            rotation: root.player.display_rotation

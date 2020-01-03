@@ -1,7 +1,8 @@
 app: {inspect: false, player_num_cols: 2, player_num_rows: null}
 recording:
   players:
-  - ffmpeg:
+  - display_rotation: 0
+    ffmpeg:
       dshow_filename: ''
       dshow_opt: ''
       dshow_rate: 0

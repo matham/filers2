@@ -46,7 +46,7 @@ class FilersPlayer(EventDispatcher):
     is used by this player object.
     """
 
-    __config_props__ = ('player_name', 'recorder_name')
+    __config_props__ = ('player_name', 'recorder_name', 'display_rotation')
 
     ffmpeg_player: FFmpegPlayer = None
 
@@ -78,7 +78,7 @@ class FilersPlayer(EventDispatcher):
 
     player_to_raw_name_map = {
         'Webcam/File': 'ffmpeg', 'Network': 'client', 'Thor': 'thor',
-        'PointGray': 'ptgray', 'RTV': 'rtv',
+        'PointGray': 'ptgray',
     }
 
     player_to_nice_name_map = {v: k for k, v in player_to_raw_name_map.items()}
@@ -116,6 +116,8 @@ class FilersPlayer(EventDispatcher):
     '''
 
     player_widget: PlayerWidget = None
+
+    display_rotation = NumericProperty(0)
 
     @classmethod
     def get_config_classes(cls):
@@ -193,6 +195,9 @@ class FilersPlayer(EventDispatcher):
             recorder=self.video_recorder)
         self.server_recorder_settings = RemoteRecordSettingsWidget(
             recorder=self.server_recorder)
+
+        self._update_player()
+        self._update_recorder()
 
     def display_frame(self, image, metadata=None):
         """The displays the new image to the user.
