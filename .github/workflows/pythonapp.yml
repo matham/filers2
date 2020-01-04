@@ -84,7 +84,7 @@ jobs:
       run: |
         cd packaging
         python -m PyInstaller Filers2_exe.spec
-        rm -r dist\build
+        rm -r build
         mv dist\Filers2.exe dist\Filers2_base.exe
     - name: Make PyInstaller app
       run: |
