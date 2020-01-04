@@ -77,13 +77,24 @@ jobs:
       run: |
         python -m pip install --upgrade pip virtualenv wheel setuptools
         python -m pip install kivy[base] --pre --extra-index-url  https://kivy.org/downloads/simple/
-        python -m pip install https://github.com/matham/base_kivy_app/archive/master.zip thorcam pyflycap2
+        python -m pip install https://github.com/matham/base_kivy_app/archive/master.zip pyflycap2
         python -m pip install https://github.com/matham/cpl_media/archive/master.zip
         python -m pip install -e .[dev]
-    - name: Make PyInstaller app
+    - name: Make PyInstaller app (no thorcam)
       run: |
         cd packaging
         python -m PyInstaller Filers2_exe.spec
+        rm -r dist\build
+        mv dist\Filers2.exe dist\Filers2_base.exe
+    - name: Make PyInstaller app
+      run: |
+        python -m pip install thorcam
+        cd packaging
+        python -m PyInstaller Filers2_exe.spec
+    - name: Make PyInstaller zip app
+      run: |
+        cd packaging
+        python -m PyInstaller Filers2.spec
     - name: Upload app as artifact
       uses: actions/upload-artifact@master
       with:

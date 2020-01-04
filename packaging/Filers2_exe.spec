@@ -4,22 +4,25 @@ block_cipher = None
 from kivy_deps import sdl2, glew
 import ffpyplayer
 import pyflycap2
-import thorcam
 import base_kivy_app
 import cpl_media
 import filers2
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, \
     get_deps_all, hookspath, runtime_hooks
+try:
+    import thorcam
+except ImportError:
+    thorcam = None
 
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend([
-    'pyflycap2', 'ffpyplayer', 'thorcam', 'ffpyplayer.pic',
+    'pyflycap2', 'ffpyplayer', 'ffpyplayer.pic',
     'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
     'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
     'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
     'ffpyplayer.player.player', 'ffpyplayer.player.queue',
     'numpy.random.common', 'numpy.random.bounded_integers',
-    'numpy.random.entropy'])
+    'numpy.random.entropy'] + (['thorcam'] if thorcam else []))
 
 
 a = Analysis(['../filers2/run_app.py'],
@@ -39,8 +42,8 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + pyflycap2.dep_bins + thorcam.dep_bins)],
-          name='Filers3',
+          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + pyflycap2.dep_bins + (thorcam.dep_bins if thorcam else []))],
+          name='Filers2',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
