@@ -1,0 +1,295 @@
+#:import pretty_space base_kivy_app.utils.pretty_space
+
+<CompressionWidget>:
+    size_hint_min_x: self.minimum_width
+    orientation: 'vertical'
+    manager: app.compression_manager
+    source_container: source_container.__self__
+    spacing: '5dp'
+    canvas:
+        Color:
+            rgba: app.theme.primary_light
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_min_x: self.minimum_width
+        size_hint_min_y: self.minimum_height
+        size_hint_y: .3
+        canvas:
+            Color:
+                rgba: app.theme.primary
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        FlatLabel:
+            text: 'Sources directories/files'
+            height: self.texture_size[1]
+            size_hint_y: None
+            size_hint_min_x: self.texture_size[0]
+            center_texture: True
+            flat_color: app.theme.text_primary
+        BoxLayout:
+            disabled: app.compression_manager.thread_has_job
+            size_hint_y: None
+            size_hint_min_x: self.minimum_width
+            height: '34dp'
+            padding: '15dp', '5dp'
+            spacing: '5dp'
+            FlatImageButton:
+                scale_down_color: True
+                source: 'flat_plus.png'
+                flat_color: app.theme.accent
+                on_release: app.compression_manager.create_source()
+            AnimatedButton:
+                anim_active: bool(app.compression_manager.currently_crawling)
+                max_width: self.width * .67
+                scale_down_color: True
+                source: 'nothing.png' if app.compression_manager.currently_crawling else 'flat_refresh.png'
+                flat_color: app.theme.accent
+                on_release: app.compression_manager.request_refresh_contents()
+            FlatLabel:
+                text: 'Suffix filter:'
+                size: self.texture_size
+                size_hint: None, None
+                flat_color: app.theme.text_primary
+            FlatSizedTextInput:
+                text: app.compression_manager.match_suffix
+                background_color: app.theme.primary_light
+                hint_text: '.ext'
+                on_focus: if not self.focus: app.compression_manager.match_suffix = self.text
+                width: '50dp'
+                size_hint_x: None
+        ScrollView:
+            bar_width: '10dp'
+            scroll_type: ['bars']
+            size_hint_min_y: min(dp(50), source_container.minimum_height)
+            size_hint_min_x: source_container.minimum_width
+            BoxLayout:
+                id: source_container
+                disabled: bool(app.compression_manager.thread_has_job)
+                size_hint: None, None
+                height: self.minimum_height
+                width: self.parent.width
+                spacing: '5dp'
+                orientation: 'vertical'
+                padding: '10dp', '10dp'
+                canvas:
+                    Color:
+                        rgba: app.theme.primary
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_min: self.minimum_size
+        padding: '3dp', 0
+        canvas:
+            Color:
+                rgba: app.theme.primary
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        FlatLabel:
+            text: 'Files'
+            height: self.texture_size[1]
+            size_hint_y: None
+            size_hint_min_x: self.texture_size[0]
+            center_texture: True
+            flat_color: app.theme.text_primary
+        BoxLayout:
+            size_hint_y: None
+            size_hint_min_x: self.minimum_width
+            height: '34dp'
+            padding: '15dp', '5dp'
+            spacing: '5dp'
+            FlatImageToggleButton:
+                disabled: bool(app.compression_manager.thread_has_job) and not app.compression_manager.currently_processing or app.compression_manager.currently_processing and self.state == 'normal'
+                scale_down_color: True
+                source: 'flat_play.png' if self.state == 'normal' else 'flat_stop.png'
+                flat_color: app.theme.accent
+                state: 'down' if app.compression_manager.currently_processing else 'normal'
+                on_release:
+                    if self.state == 'down': app.compression_manager.request_process_files()
+                    if self.state == 'normal': app.compression_manager.stop_processing = True
+            FlatImageButton:
+                disabled: bool(app.compression_manager.thread_has_job)
+                scale_down_color: True
+                source: 'flat_refresh.png'
+                flat_color: app.theme.accent
+                on_release: app.compression_manager.request_check_target_exists()
+            FlatImageButton:
+                disabled: bool(app.compression_manager.thread_has_job)
+                scale_down_color: True
+                source: 'flat_folder.png'
+                flat_color: app.theme.accent
+                on_release:
+                    app.filebrowser.dirselect = True
+                    app.filebrowser.multiselect = False
+                    app.filebrowser.callback = app.compression_manager.request_refresh_target_path
+                    app.filebrowser.open()
+            FlatSizedTextInput:
+                disabled: bool(app.compression_manager.thread_has_job)
+                text: app.compression_manager.target_root
+                background_color: app.theme.primary_light
+                hint_text: 'target'
+                on_focus: if not self.focus: app.compression_manager.request_refresh_target_path(self.text)
+                size_hint_min_x: '100dp'
+        RecycleView:
+            on_kv_post: app.compression_manager.recycle_view = self.__self__
+            viewclass: 'MediaItemView'
+            size_hint_min_x: rv.minimum_width
+            size_hint_min_y: min(dp(50), rv.minimum_height)
+            bar_width: '10dp'
+            scroll_type: ['bars']
+            padding: '10dp', 0
+            RecycleBoxLayout:
+                id: rv
+                default_size: None, None
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                spacing: '1dp'
+                canvas:
+                    Color:
+                        rgba: app.theme.accent
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+
+<SourceWidget>:
+    spacing: '5dp'
+    size_hint_min_x: self.minimum_width
+    size_hint_y: None
+    height: self.minimum_height
+    FlatLabel:
+        text: 'Path:'
+        size: self.texture_size
+        size_hint: None, None
+        flat_color: app.theme.text_primary
+    FlatImageButton:
+        scale_down_color: True
+        source: 'flat_folder.png'
+        flat_color: app.theme.accent
+        on_release:
+            app.filebrowser.dirselect = True
+            app.filebrowser.multiselect = True
+            app.filebrowser.callback = root.set_source
+            app.filebrowser.open()
+    FlatSizedTextInput:
+        text: root.source_obj.source_viz
+        background_color: app.theme.primary_light
+        hint_text: 'Source'
+        on_focus: if not self.focus: app.compression_manager.request_set_source(root.source_obj, self.text)
+        size_hint_min_x: '100dp'
+    AnimatedButton:
+        anim_active: root.source_obj.processing
+        max_width: self.width * .67
+        scale_down_color: True
+        source: 'nothing.png' if self.anim_active else 'flat_refresh.png'
+        flat_color: app.theme.accent
+        on_release: app.compression_manager.request_refresh_contents(root.source_obj)
+    FlatImageButton:
+        scale_down_color: True
+        source: 'flat_delete.png'
+        flat_color: app.theme.accent
+        on_release: app.compression_manager.delete_source(root.source_obj)
+
+
+<MediaItemView>:
+    spacing: '5dp'
+    size_hint_y: None
+    height: self.minimum_height
+    rows: 2
+    filename: ''
+    target_filename: ''
+    exists: False
+    file_size: 0
+    target_file_size: 0
+    command: ''
+    result: ''
+    status: ''
+    media_item: None
+    skip: False
+    padding: '10dp', '2dp'
+    canvas:
+        Color:
+            rgba: app.theme.primary
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FlatLabel:
+        text: 'Source:'
+        size: self.texture_size
+        size_hint: None, None
+        flat_color: app.theme.text_primary
+        bold: True
+        center_texture: False
+    FlatLabel:
+        text: root.filename
+        flat_color: app.theme.text_primary
+        text_size: self.width, None
+        shorten: True
+        shorten_from: 'left'
+        size_hint_min_x: '100dp'
+        padding_y: '2dp'
+    FlatLabel:
+        text: '{}'.format(pretty_space(root.file_size))
+        size: max(self.texture_size[0], self.width), self.texture_size[1]
+        size_hint: None, None
+        flat_color: app.theme.text_primary
+        bold: True
+        center_texture: False
+    FlatToggleButton:
+        disabled: root.status == 'processing'
+        text: "Don't skip" if self.state == 'normal' else 'Skip'
+        size_hint: None, None
+        size: max(self.texture_size[0], self.width), self.texture_size[1]
+        padding_x: '1dp'
+        bold: True
+        state: 'down' if root.skip else 'normal'
+        on_release: app.compression_manager.request_set_skip(root.media_item, self.state == 'down')
+        scale_down_color: True
+        flat_color: app.theme.text_primary
+        flat_background_color: app.theme.primary_light if self.state == 'normal' else app.theme.primary_dark
+    AnimatedButton:
+        anim_active: root.status == 'processing'
+        max_width: self.width * .67
+        source: 'nothing.png'
+        flat_color: app.theme.accent
+    FlatLabel:
+        text: 'Target:'
+        size: self.texture_size
+        size_hint: None, None
+        flat_color: app.theme.text_primary
+        bold: True
+        center_texture: False
+    FlatLabel:
+        text: root.target_filename
+        flat_color: app.theme.text_primary
+        text_size: self.width, None
+        shorten: True
+        shorten_from: 'left'
+        size_hint_min_x: '100dp'
+        padding_y: '2dp'
+    FlatLabel:
+        text: '{}'.format(pretty_space(root.target_file_size)) if root.target_file_size else ''
+        size: max(self.texture_size[0], self.width), self.texture_size[1]
+        size_hint: None, None
+        flat_color: app.theme.text_primary
+        bold: True
+        center_texture: False
+    FlatLabel:
+        text: 'Already exists' if root.exists and not root.status else root.status
+        size: max(self.texture_size[0], self.width), self.texture_size[1]
+        size_hint: None, None
+        flat_color: [1, 0, 0, 1] if root.status == 'failed' or not root.status and root.exists else app.theme.text_primary
+        center_texture: False
+    FlatImageButton:
+        disabled: root.status == 'processing'
+        scale_down_color: True
+        source: 'flat_dots_vertical.png'
+        flat_color: app.theme.accent

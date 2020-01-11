@@ -1,3 +1,14 @@
+<LoadingAnim>:
+    canvas:
+        Color:
+            rgba: self.flat_color[:3] + [self.alpha]
+        Ellipse:
+            pos: self.center_x - self.current_width / 2, self.center_y - self.current_width / 2
+            size: self.current_width, self.current_width
+
+
+<AnimatedButton@FlatImageButton+LoadingAnim>
+
 
 <MainView@BoxLayout>:
     orientation: 'vertical'
@@ -20,84 +31,103 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-        FlatLabel:
-            size_hint: None, None
-            size: self.texture_size
-            padding: '5dp', '5dp'
-            text: 'Rows:'
-            flat_color: app.theme.text_primary
-            font_size: '13sp'
-        ThemedSpinner:
+        ScreenManager:
+            size_hint_min_x: max(recording_bar.minimum_width, compression_bar.minimum_width)
+            id: screen_manager_bar
+            Screen:
+                name: 'recording'
+                BoxLayout:
+                    id: recording_bar
+                    spacing: '5dp'
+                    FlatLabel:
+                        size_hint: None, None
+                        size: self.texture_size
+                        padding: '5dp', '5dp'
+                        text: 'Rows:'
+                        flat_color: app.theme.text_primary
+                        font_size: '13sp'
+                    ThemedSpinner:
+                        size_hint_x: None
+                        width: '55dp'
+                        values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
+                        text: '---' if not app.player_num_rows else str(app.player_num_rows)
+                        on_text: app.player_num_rows = None if self.text == '---' else int(self.text)
+                    FlatLabel:
+                        size_hint: None, None
+                        size: self.texture_size
+                        padding: '5dp', '5dp'
+                        text: 'Columns:'
+                        flat_color: app.theme.text_primary
+                        font_size: '13sp'
+                    ThemedSpinner:
+                        size_hint_x: None
+                        width: '55dp'
+                        values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
+                        text: '---' if not app.player_num_cols else str(app.player_num_cols)
+                        on_text: app.player_num_cols = None if self.text == '---' else int(self.text)
+                    FlatImageButton:
+                        scale_down_color: True
+                        source: 'flat_plus.png'
+                        flat_color: app.theme.accent
+                        on_release: container.add_player()
+            Screen:
+                name: 'compression'
+                BoxLayout:
+                    id: compression_bar
+                    spacing: '5dp'
+        BoxLayout:
             size_hint_x: None
-            width: '55dp'
-            values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
-            text: '---' if not app.player_num_rows else str(app.player_num_rows)
-            on_text: app.player_num_rows = None if self.text == '---' else int(self.text)
-        FlatLabel:
-            size_hint: None, None
-            size: self.texture_size
-            padding: '5dp', '5dp'
-            text: 'Columns:'
-            flat_color: app.theme.text_primary
-            font_size: '13sp'
-        ThemedSpinner:
-            size_hint_x: None
-            width: '55dp'
-            values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
-            text: '---' if not app.player_num_cols else str(app.player_num_cols)
-            on_text: app.player_num_cols = None if self.text == '---' else int(self.text)
-        FlatImageButton:
-            scale_down_color: True
-            source: 'flat_plus.png'
-            flat_color: app.theme.accent
-            on_release: container.add_player()
-        Widget
-        FlatDivider:
-            color: app.theme.divider
-        LightThemedToggleButton:
-            text: 'Recording'
-            bold: True
-            padding: '2dp', '2dp'
-            size_hint: None, None
-            size: self.texture_size
-            state: 'normal' if screen_manager.current == 'recording' else 'down'
-            on_state: screen_manager.current = 'recording' if self.state == 'normal' else 'processing'
-            center_texture: True
-        LightThemedToggleButton:
-            text: 'Processing'
-            bold: True
-            padding: '2dp', '2dp'
-            size_hint: None, None
-            size: self.texture_size
-            state: 'normal' if screen_manager.current == 'processing' else 'down'
-            on_state: screen_manager.current = 'recording' if self.state == 'down' else 'processing'
-            center_texture: True
-        FlatDivider:
-            color: app.theme.divider
-        FlatLabel:
-            text: str(error_indicator.count)
-            size_hint: None, None
-            size: self.texture_size
-            padding: '1dp', '5dp'
-            flat_color: app.theme.text_primary
-        FlatErrorIndicatorPopup:
-            id: error_indicator
-            scale_down_color: True
-            source: 'flat_alert.png'
-            flat_color: app.theme.accent
-            on_kv_post: app.error_indicator = self
-            on_release: self.count = 0
+            width: self.minimum_width
+            spacing: '5dp'
+            FlatDivider:
+                color: app.theme.divider
+            LightThemedToggleButton:
+                text: 'Recording'
+                bold: True
+                padding: '2dp', '2dp'
+                size_hint: None, None
+                size: self.texture_size
+                state: 'normal' if screen_manager.current == 'recording' else 'down'
+                on_state: screen_manager_bar.current = screen_manager.current = 'recording' if self.state == 'normal' else 'compression'
+                center_texture: True
+            LightThemedToggleButton:
+                text: 'Processing'
+                bold: True
+                padding: '2dp', '2dp'
+                size_hint: None, None
+                size: self.texture_size
+                state: 'normal' if screen_manager.current == 'compression' else 'down'
+                on_state: screen_manager_bar.current = screen_manager.current = 'recording' if self.state == 'down' else 'compression'
+                center_texture: True
+            FlatDivider:
+                color: app.theme.divider
+            FlatLabel:
+                text: str(error_indicator.count)
+                size_hint: None, None
+                size: self.texture_size
+                padding: '1dp', '5dp'
+                flat_color: app.theme.text_primary
+            FlatErrorIndicatorPopup:
+                id: error_indicator
+                scale_down_color: True
+                source: 'flat_alert.png'
+                flat_color: app.theme.accent
+                on_kv_post: app.error_indicator = self
+                on_release: self.count = 0
     ScreenManager:
         id: screen_manager
         Screen:
             name: 'recording'
             ScrollView:
+                bar_width: '10dp'
+                scroll_type: ['bars']
                 PlayersContainerWidget:
                     id: container
                     cols: app.player_num_cols
                     rows: app.player_num_rows
                     spacing: '5dp'
-                    on_kv_post: app.players_widget = self
+                    on_kv_post: app.players_widget = self.__self__
         Screen:
-            name: 'processing'
-            ScrollView:
+            name: 'compression'
+            CompressionWidget:
+                on_kv_post: app.compression_widget = self.__self__

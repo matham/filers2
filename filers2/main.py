@@ -17,8 +17,9 @@ from kivy.lang import Builder
 from kivy.factory import Factory
 from kivy.properties import ObjectProperty, BooleanProperty, NumericProperty
 
+import filers2.utils
 from filers2.recording import PlayersContainerWidget
-import filers2.processing
+from filers2.compression import CompressionManager, CompressionWidget
 
 from kivy.core.window import Window
 
@@ -52,15 +53,21 @@ class Filers2App(BaseKivyApp):
     columns will be auto-computed from the number of players added.
     """
 
+    compression_widget: CompressionWidget = ObjectProperty(None)
+
+    compression_manager: CompressionManager = None
+
     @classmethod
     def get_config_classes(cls):
         d = super(Filers2App, cls).get_config_classes()
         d['recording'] = PlayersContainerWidget
+        d['compression'] = CompressionManager
         return d
 
     def get_config_instances(self):
         d = super(Filers2App, self).get_config_instances()
         d['recording'] = self.players_widget
+        d['compression'] = self.compression_manager
         return d
 
     def __init__(self, open_player_thread=True, **kwargs):
@@ -69,6 +76,7 @@ class Filers2App(BaseKivyApp):
     def build(self):
         base = dirname(filers2.__file__)
         Builder.load_file(join(base, 'filers2_style.kv'))
+        self.compression_manager = CompressionManager()
 
         self.yesno_prompt = Factory.FlatYesNoPrompt()
         root = Factory.get('MainView')()
@@ -95,6 +103,9 @@ class Filers2App(BaseKivyApp):
         if self.players_widget is not None:
             self.dump_app_settings_to_file()
             self.players_widget.clean_up()
+
+        if self.compression_manager is not None:
+            self.compression_manager.stop()
 
 
 def run_app():

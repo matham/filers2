@@ -1,4 +1,13 @@
 app: {inspect: false, player_num_cols: 2, player_num_rows: null}
+compression:
+  ffmpeg_disable_audio: true
+  ffmpeg_num_threads: 0
+  ffmpeg_vcodec: libx264
+  ffmpeg_vcodec_opts: [-preset, medium, -crf, '17']
+  match_suffix: .mkv
+  sources: []
+  target_root: ''
+  target_suffix: .mkv
 recording:
   players:
   - display_rotation: 0
