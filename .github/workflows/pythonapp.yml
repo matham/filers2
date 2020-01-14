@@ -76,6 +76,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip virtualenv wheel setuptools
+        python -m pip install pyinstaller==3.5
         python -m pip install kivy[base] --pre --extra-index-url  https://kivy.org/downloads/simple/
         python -m pip install https://github.com/matham/base_kivy_app/archive/master.zip pyflycap2
         python -m pip install https://github.com/matham/cpl_media/archive/master.zip
