@@ -6,12 +6,16 @@
     manager: app.compression_manager
     source_container: source_container.__self__
     spacing: '5dp'
+    media_item_log: media_item_log.__self__
     canvas:
         Color:
             rgba: app.theme.primary_light
         Rectangle:
             pos: self.pos
             size: self.size
+    MediaItemLog:
+        id: media_item_log
+        on_kv_post: root.remove_widget(self)
     BoxLayout:
         orientation: 'vertical'
         size_hint_min_x: self.minimum_width
@@ -24,7 +28,7 @@
                 pos: self.pos
                 size: self.size
         FlatLabel:
-            text: 'Sources directories/files'
+            text: 'Sources'
             height: self.texture_size[1]
             size_hint_y: None
             size_hint_min_x: self.texture_size[0]
@@ -44,11 +48,10 @@
                 on_release: app.compression_manager.create_source()
             AnimatedButton:
                 anim_active: bool(app.compression_manager.currently_crawling)
-                max_width: self.width * .67
                 scale_down_color: True
-                source: 'nothing.png' if app.compression_manager.currently_crawling else 'flat_refresh.png'
+                source: 'flat_refresh.png'
                 flat_color: app.theme.accent
-                on_release: app.compression_manager.request_refresh_contents()
+                on_release: if not app.compression_manager.currently_crawling: app.compression_manager.request_refresh_contents()
             FlatLabel:
                 text: 'Suffix filter:'
                 size: self.texture_size
@@ -136,6 +139,13 @@
                 hint_text: 'target'
                 on_focus: if not self.focus: app.compression_manager.request_refresh_target_path(self.text)
                 size_hint_min_x: '100dp'
+            FlatLabel:
+                text:'Succeeded: [b]{}[/b], Failed: [b]{}[/b], Skipped: [b]{}[/b]'.format(app.compression_manager.num_processed_files, app.compression_manager.num_failed_files, app.compression_manager.num_skipped_files)
+                size_hint: None, None
+                size: self.texture_size
+                flat_color: app.theme.text_primary
+                center_texture: False
+                markup: True
         RecycleView:
             on_kv_post: app.compression_manager.recycle_view = self.__self__
             viewclass: 'MediaItemView'
@@ -187,9 +197,8 @@
         size_hint_min_x: '100dp'
     AnimatedButton:
         anim_active: root.source_obj.processing
-        max_width: self.width * .67
         scale_down_color: True
-        source: 'nothing.png' if self.anim_active else 'flat_refresh.png'
+        source: 'flat_refresh.png'
         flat_color: app.theme.accent
         on_release: app.compression_manager.request_refresh_contents(root.source_obj)
     FlatImageButton:
@@ -244,7 +253,7 @@
         bold: True
         center_texture: False
     FlatToggleButton:
-        disabled: root.status == 'processing'
+        disabled: root.status == 'processing' or root.exists
         text: "Don't skip" if self.state == 'normal' else 'Skip'
         size_hint: None, None
         size: max(self.texture_size[0], self.width), self.texture_size[1]
@@ -256,10 +265,14 @@
         flat_color: app.theme.text_primary
         flat_background_color: app.theme.primary_light if self.state == 'normal' else app.theme.primary_dark
     AnimatedButton:
+        disabled: root.status == 'processing'
         anim_active: root.status == 'processing'
-        max_width: self.width * .67
-        source: 'nothing.png'
+        source: 'flat_refresh.png' if root.status == 'processing' else 'flat_dots_vertical.png'
         flat_color: app.theme.accent
+        on_release:
+            app.compression_widget.media_item_log.command = root.command
+            app.compression_widget.media_item_log.result = root.result
+            app.compression_widget.media_item_log.open(root)
     FlatLabel:
         text: 'Target:'
         size: self.texture_size
@@ -288,8 +301,44 @@
         size_hint: None, None
         flat_color: [1, 0, 0, 1] if root.status == 'failed' or not root.status and root.exists else app.theme.text_primary
         center_texture: False
-    FlatImageButton:
-        disabled: root.status == 'processing'
-        scale_down_color: True
-        source: 'flat_dots_vertical.png'
+    Widget:
+        size_hint_x: None
+        width: '1dp'
+
+
+<MediaItemLog@FlatDropDown>:
+    flat_color: app.theme.primary_text
+    flat_border_color: app.theme.divider
+    do_scroll: False, False
+    command: ''
+    result: ''
+    FlatSplitter:
+        size_hint: None, None
+        height: self.minimum_height
+        min_size: '300dp'
+        max_size: '800dp'
+        width: '400'
+        sizable_from: 'right'
         flat_color: app.theme.accent
+        BoxLayout:
+            spacing: '5dp'
+            orientation: 'vertical'
+            size_hint_min_y: self.minimum_height
+            FlatLabel:
+                id: command
+                text: '[b]Command[/b]: {}'.format(root.command)
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                flat_color: app.theme.text_primary
+                markup: True
+            ScrollView:
+                size_hint_min_y: dp(300)
+                bar_width: '10dp'
+                scroll_type: ['bars']
+                FlatLabel:
+                    id: result
+                    text: root.result
+                    size_hint: None, None
+                    size: self.texture_size
+                    flat_color: app.theme.text_primary

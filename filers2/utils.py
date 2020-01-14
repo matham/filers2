@@ -8,13 +8,7 @@ class LoadingAnim(object):
 
     anim_active = BooleanProperty(False)
 
-    current_width = NumericProperty(0)
-
-    min_width = NumericProperty(0)
-
-    max_width = NumericProperty(0)
-
-    alpha = NumericProperty(1)
+    angle = NumericProperty(0)
 
     _anim = None
 
@@ -27,23 +21,20 @@ class LoadingAnim(object):
 
     def _handle_anim_done(self, *largs):
         if self.anim_active:
-            self.current_width = self.min_width
-            self.alpha = 1
+            self.angle = 0
             self._anim.start(self)
 
     def _anim_active(self, *largs):
         if self.anim_active:
             if self._anim is None:
-                self._anim = Animation(
-                    alpha=0, current_width=self.max_width, duration=1)
+                self._anim = Animation(angle=360, duration=1)
                 self._anim.fbind('on_complete', self._anim_trigger)
 
-            self.current_width = self.min_width
-            self.alpha = 1
+            self.angle = 0
             self._anim.start(self)
         else:
             self._anim.cancel(self)
-            self.alpha = 0
+            self.angle = 0
             self._anim_trigger.cancel()
 
 

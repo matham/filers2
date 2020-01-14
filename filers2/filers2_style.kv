@@ -1,13 +1,15 @@
-<LoadingAnim>:
-    canvas:
-        Color:
-            rgba: self.flat_color[:3] + [self.alpha]
-        Ellipse:
-            pos: self.center_x - self.current_width / 2, self.center_y - self.current_width / 2
-            size: self.current_width, self.current_width
+#:import pretty_space base_kivy_app.utils.pretty_space
+#:import pretty_time base_kivy_app.utils.pretty_time
 
-
-<AnimatedButton@FlatImageButton+LoadingAnim>
+<AnimatedButton@FlatImageButton+LoadingAnim>:
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: self.angle
+            axis: 0, 0, 1
+            origin: self.center
+    canvas.after:
+        PopMatrix
 
 
 <MainView@BoxLayout>:
@@ -75,6 +77,12 @@
                 BoxLayout:
                     id: compression_bar
                     spacing: '5dp'
+                    FlatLabel:
+                        text: (pretty_time(app.compression_manager.elapsed_time) + ' / {} ({}%)'.format(pretty_time(app.compression_manager.total_estimated_time), int(app.compression_manager.fraction_done * 100)) if app.compression_manager.elapsed_time else '')
+                        size_hint: None, None
+                        size: max(self.texture_size[0], self.width), self.texture_size[1]
+                        flat_color: app.theme.text_primary
+                        center_texture: False
         BoxLayout:
             size_hint_x: None
             width: self.minimum_width
@@ -91,7 +99,7 @@
                 on_state: screen_manager_bar.current = screen_manager.current = 'recording' if self.state == 'normal' else 'compression'
                 center_texture: True
             LightThemedToggleButton:
-                text: 'Processing'
+                text: 'Compression'
                 bold: True
                 padding: '2dp', '2dp'
                 size_hint: None, None

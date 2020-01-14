@@ -11,6 +11,7 @@ import itertools
 import sys
 import traceback
 from threading import Thread
+import time
 from queue import Queue, Empty
 import pathlib
 import ffpyplayer
@@ -227,7 +228,6 @@ class MediaContentItem(object):
             return
 
         try:
-            print(self.command)
             parent: pathlib.Path = self.target_filename.parent
             if not parent.exists():
                 os.makedirs(str(parent))
@@ -237,10 +237,9 @@ class MediaContentItem(object):
             self.result = 'Error: {}\n\n'.format(e)
             self.result += ''.join(traceback.format_exception(*sys.exc_info()))
             self.check_target_exists()
-            print(self.result)
             return
 
-        self.result = 'Output:\n{}\n\nError output:\n{}'.format(
+        self.result = 'Output:\n{}\n\n:\n{}'.format(
             proc.stdout, proc.stderr)
         self.status = 'failed' if proc.returncode else 'done'
         self.check_target_exists()
@@ -278,6 +277,14 @@ class CompressionManager(EventDispatcher):
 
     processed_size = NumericProperty(0)
 
+    fraction_done = NumericProperty(0)
+    """By memory.
+    """
+
+    elapsed_time = NumericProperty(0)
+
+    total_estimated_time = NumericProperty(0)
+
     recycle_view = None
 
     sources: List[SourcePath] = []
@@ -300,9 +307,32 @@ class CompressionManager(EventDispatcher):
 
     stop_processing = False
 
+    _start_processing_time = 0
+
+    _elapsed_time_trigger = None
+
     def __init__(self, **kwargs):
         super(CompressionManager, self).__init__(**kwargs)
         self.sources = []
+        self._elapsed_time_trigger = Clock.create_trigger(
+            self._update_elapsed_time, timeout=.25, interval=True)
+
+        def _update_fraction_done(*largs):
+            if self.total_size:
+                self.fraction_done = self.processed_size / self.total_size
+            else:
+                self.fraction_done = 0
+        self.fbind('processed_size', _update_fraction_done)
+        self.fbind('total_size', _update_fraction_done)
+
+        def _update_total_estimated_time(*largs):
+            if self.fraction_done:
+                self.total_estimated_time = \
+                    self.elapsed_time / self.fraction_done
+            else:
+                self.total_estimated_time = 0
+        # self.fbind('elapsed_time', _update_total_estimated_time)
+        self.fbind('fraction_done', _update_total_estimated_time)
 
         self.locate_ffmpeg()
 
@@ -314,6 +344,9 @@ class CompressionManager(EventDispatcher):
             target=self.run_thread,
             args=(self.kivy_thread_queue, self.internal_thread_queue))
         self.thread.start()
+
+    def _update_elapsed_time(self, *largs):
+        self.elapsed_time = time.perf_counter() - self._start_processing_time
 
     def get_config_properties(self):
         """(internal) used by the config system to get the list of config
@@ -368,7 +401,11 @@ class CompressionManager(EventDispatcher):
 
         self.num_processed_files = 0
         self.processed_size = 0
+        self.fraction_done = 0
+        self.elapsed_time = 0
+        self.total_estimated_time = 0
         self.num_skipped_files = 0
+        self._start_processing_time = 0
         self.num_failed_files = 0
         self.internal_thread_queue.put(('process_files', None))
 
@@ -468,6 +505,8 @@ class CompressionManager(EventDispatcher):
                 elif msg == 'check_target_exists':
                     self.check_target_exists()
                 elif msg == 'process_files':
+                    self._start_processing_time = time.perf_counter()
+                    self._elapsed_time_trigger()
                     self.compute_size_not_done()
                     self.process_files()
             except BaseException as e:
@@ -481,6 +520,7 @@ class CompressionManager(EventDispatcher):
                 kivy_queue_put(
                     ('increment', (self, 'thread_has_job', -1)))
                 if msg in ('process_files', ):
+                    self._elapsed_time_trigger.cancel()
                     kivy_queue_put(
                         ('setattr', (self, 'currently_processing', False)))
                 if msg in ('refresh_contents', ):
@@ -720,15 +760,7 @@ class SourceWidget(BoxLayout):
 
 
 class MediaItemView(GridLayout):
-
-    def get_color(self, status, target_exists):
-        if not status or status == 'processing':
-            if target_exists:
-                assert status != 'processing'
-                return 'Already exists'
-            return status
-
-        return status
+    pass
 
 
 Builder.load_file(join(dirname(__file__), 'compression_style.kv'))
