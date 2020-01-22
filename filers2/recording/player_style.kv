@@ -103,6 +103,9 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
+        ThemedSizedLabel:
+            text: 'Player:'
+            bold: True
         ThemedSpinner:
             disabled: pin_btn.state == 'down'
             size_hint_x: None
@@ -145,7 +148,8 @@
         FlatDivider:
             color: app.theme.divider
         ThemedSizedLabel:
-            text: 'Record:'
+            text: 'Recorder:'
+            bold: True
         ThemedSpinner:
             size_hint_x: None
             width: self.minimum_width
