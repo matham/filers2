@@ -219,8 +219,7 @@ class FilersPlayer(EventDispatcher):
         if recorder is self.video_recorder:
             filename = join(
                 recorder.record_directory,
-                recorder.record_fname.replace(
-                    '{}', str(recorder.record_fname_count)))
+                recorder.record_fname.format(recorder.record_fname_count))
             root, fname = split(filename)
             fname = splitext(fname)[0] + '.bmp'
         elif recorder is self.image_file_recorder:
