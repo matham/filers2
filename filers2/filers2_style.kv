@@ -53,7 +53,9 @@
                         width: '55dp'
                         values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
                         text: '---' if not app.player_num_rows else str(app.player_num_rows)
-                        on_text: app.player_num_rows = None if self.text == '---' else int(self.text)
+                        on_text:
+                            app.player_num_rows = None if self.text == '---' else int(self.text)
+                            if self.text != '---': app.player_num_cols = None
                     FlatLabel:
                         size_hint: None, None
                         size: self.texture_size
@@ -66,7 +68,9 @@
                         width: '55dp'
                         values: ['---', '1', '2', '3', '4', '5', '6', '7', '8']
                         text: '---' if not app.player_num_cols else str(app.player_num_cols)
-                        on_text: app.player_num_cols = None if self.text == '---' else int(self.text)
+                        on_text:
+                            app.player_num_cols = None if self.text == '---' else int(self.text)
+                            if self.text != '---': app.player_num_rows = None
                     FlatImageButton:
                         scale_down_color: True
                         source: 'flat_plus.png'
