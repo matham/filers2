@@ -191,12 +191,7 @@
             flat_color: app.theme.accent
             last_image: None
             on_press: self.last_image = root.player.last_image
-            on_release:
-                app.filebrowser.dirselect = False
-                app.filebrowser.multiselect = False
-                app.filebrowser.target, app.filebrowser.filename = root.player.get_screenshot_filename()
-                app.filebrowser.callback = partial(root.player.save_screenshot, self.last_image)
-                if self.last_image: app.filebrowser.open()
+            on_release: if self.last_image: app.open_filechooser(callback=partial(root.player.save_screenshot, self.last_image), target=root.player.get_screenshot_filename(), mode='save', title='Select screenshot filename', filters=['*.bmp'])
         FlatDivider:
             color: app.theme.divider
         FlatImageButton:

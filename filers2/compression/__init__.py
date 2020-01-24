@@ -451,17 +451,10 @@ class CompressionManager(EventDispatcher):
         self.currently_crawling += 1
         self.internal_thread_queue.put(('refresh_contents', (obj, )))
 
-    def request_refresh_target_path(self, path, selection=None, filename=None):
-        if not selection:
-            if not filename:
-                f = path
-            else:
-                f = join(path, filename)
-        else:
-            f = join(path, selection[0])
-
-        if not exists(f):
+    def request_refresh_target_path(self, paths):
+        if not paths or not exists(paths[0]):
             return
+        f = paths[0]
         if isfile(f):
             f = dirname(f)
 
@@ -738,25 +731,15 @@ class SourceWidget(BoxLayout):
 
     manager: CompressionManager = None
 
-    def set_source(self, path, selection, filename):
+    def set_source(self, paths):
         """Called by the GUI to set the filename.
         """
-        if not selection:
-            if not exists(join(path, filename)):
-                return
-            selection = [filename]
-        else:
-            selection = selection[:]
-
-        if len(selection) > 1 and \
-                abspath(selection[0]) == abspath(dirname(selection[1])):
-            del selection[0]
-
+        if not paths:
+            return
         # set this source
-        self.manager.request_set_source(
-            self.source_obj, join(path, selection[0]))
-        for item in selection[1:]:
-            self.manager.create_source(join(path, item))
+        self.manager.request_set_source(self.source_obj, paths[0])
+        for item in paths[1:]:
+            self.manager.create_source(item)
 
 
 class MediaItemView(GridLayout):

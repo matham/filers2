@@ -127,11 +127,7 @@
                 scale_down_color: True
                 source: 'flat_folder.png'
                 flat_color: app.theme.accent
-                on_release:
-                    app.filebrowser.dirselect = True
-                    app.filebrowser.multiselect = False
-                    app.filebrowser.callback = app.compression_manager.request_refresh_target_path
-                    app.filebrowser.open()
+                on_release: app.open_filechooser(callback=app.compression_manager.request_refresh_target_path, target=app.compression_manager.target_root, dirselect=True, title='Select target directory')
             FlatSizedTextInput:
                 disabled: bool(app.compression_manager.thread_has_job)
                 text: app.compression_manager.target_root
@@ -184,11 +180,7 @@
         scale_down_color: True
         source: 'flat_folder.png'
         flat_color: app.theme.accent
-        on_release:
-            app.filebrowser.dirselect = True
-            app.filebrowser.multiselect = True
-            app.filebrowser.callback = root.set_source
-            app.filebrowser.open()
+        on_release: app.open_filechooser(callback=root.set_source, target=root.source_obj.source_viz, dirselect=True, multiselect=True, title='Select video directories')
     FlatSizedTextInput:
         text: root.source_obj.source_viz
         background_color: app.theme.primary_light

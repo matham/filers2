@@ -230,29 +230,18 @@ class FilersPlayer(EventDispatcher):
             fname = ''
 
         if isdir(root):
-            return root, fname
-        return expanduser('~'), fname
+            return join(root, fname)
+        return join(expanduser('~'), fname)
 
-    def save_screenshot(self, img, path, selection, filename):
+    def save_screenshot(self, img, paths):
         """Saves the image acquired to a file.
         """
-        if not isdir(path) or not filename:
+        if not paths:
+            return
+
+        if not isdir(dirname(paths[0])):
             raise Exception('Invalid path or filename')
-        fname = join(path, filename)
-
-        if exists(fname):
-            def yesno_callback(overwrite):
-                if not overwrite:
-                    return
-                BaseRecorder.save_image(fname, img)
-
-            yesno = App.get_running_app().yesno_prompt
-            yesno.msg = ('"{}" already exists, would you like to '
-                         'overwrite it?'.format(fname))
-            yesno.callback = yesno_callback
-            yesno.open()
-        else:
-            BaseRecorder.save_image(fname, img)
+        BaseRecorder.save_image(paths[0], img)
 
     def stop(self):
         for player in (
