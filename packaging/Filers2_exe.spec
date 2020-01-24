@@ -22,7 +22,8 @@ kwargs['hiddenimports'].extend([
     'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
     'ffpyplayer.player.player', 'ffpyplayer.player.queue',
     'numpy.random.common', 'numpy.random.bounded_integers',
-    'numpy.random.entropy'] + (['thorcam'] if thorcam else []))
+    'numpy.random.entropy', 'plyer.platforms.win.filechooser',
+    'plyer.facades.filechooser'] + (['thorcam'] if thorcam else []))
 
 
 a = Analysis(['../filers2/run_app.py'],
