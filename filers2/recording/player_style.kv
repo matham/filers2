@@ -318,3 +318,11 @@
                 do_rotation: False
                 on_rotation: root.player.display_rotation = self.rotation
                 rotation: root.player.display_rotation
+        FlatLabel:
+            size: max(self.texture_size[0], self.width), self.texture_size[1]
+            size_hint: None, None
+            flat_color: [1, 1, 1, 1]
+            outline_color: 0, 0, 0
+            text: pretty_time(root.player.recorder.elapsed_record_time) if root.player.recorder.elapsed_record_time else ''
+            font_size: '20dp'
+            pos_hint: {'x': 0, 'top': 1}
