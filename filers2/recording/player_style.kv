@@ -51,6 +51,7 @@
     data_rate: 0
     frames_skipped: 0
     recorder_summery: ''
+    player: None
     FlatSplitter:
         size_hint: None, None
         height: self.minimum_height
@@ -78,6 +79,22 @@
                     text: root.recorder_summery
                     shorten: True
                     text_size: self.size
+            BoxLayout:
+                size_hint_y: None
+                height: self.minimum_height
+                size_hint_min_x: self.minimum_width
+                spacing: '5dp'
+                padding: 0, '5dp', 0, 0
+                ThemedSizedLabel:
+                    text: 'Records with player #'
+                    bold: True
+                ThemedSpinner:
+                    text_autoupdate: False
+                    size_hint_x: None
+                    width: self.minimum_width
+                    values: ['none'] +  [str(pid) for pid in app.players_widget.player_id_mapping if pid is not root.player.player_id] if root.player else []
+                    text: str(root.player.records_with) if root.player and app.players_widget.player_id_mapping and root.player.records_with != -1 else 'none'  # force update with player_id_mapping, otherwise restoring doesn't update
+                    on_text: root.player.records_with = -1 if self.text == 'none' else int(self.text)
 
 
 <PlayerWidget>:
@@ -104,7 +121,7 @@
                 pos: self.pos
                 size: self.size
         ThemedSizedLabel:
-            text: 'Player:'
+            text: 'Player #{}:'.format(root.player.player_id)
             bold: True
         ThemedSpinner:
             disabled: pin_btn.state == 'down'
@@ -161,7 +178,7 @@
             flat_color: app.theme.accent
             disabled: root.player.player.play_state != 'playing'
             state: 'down' if root.player.recorder.record_state == 'starting' or root.player.recorder.record_state == 'recording' else 'normal'
-            on_release: root.player.recorder.record(root.player.player) if self.state == 'down' else root.player.recorder.stop()
+            on_release: app.players_widget.start_recording(root.player) if self.state == 'down' else app.players_widget.stop_recording(root.player)
         FlatImageButton:
             scale_down_color: True
             source: 'flat_dots_vertical.png'
@@ -242,6 +259,7 @@
                 self.parent.remove_widget(self)
         RecorderSettingsDropdown:
             id: image_file
+            player: root.player
             size_recorded: root.player.image_file_recorder.size_recorded
             data_rate: root.player.image_file_recorder.data_rate
             frames_skipped: root.player.image_file_recorder.frames_skipped
@@ -251,6 +269,7 @@
                 self.parent.remove_widget(self)
         RecorderSettingsDropdown:
             id: video
+            player: root.player
             size_recorded: root.player.video_recorder.size_recorded
             data_rate: root.player.video_recorder.data_rate
             frames_skipped: root.player.video_recorder.frames_skipped
@@ -260,6 +279,7 @@
                 self.parent.remove_widget(self)
         RecorderSettingsDropdown:
             id: server
+            player: root.player
             size_recorded: root.player.server_recorder.size_recorded
             data_rate: root.player.server_recorder.data_rate
             frames_skipped: root.player.server_recorder.frames_skipped

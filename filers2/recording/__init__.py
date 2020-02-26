@@ -5,7 +5,7 @@ Plays and records media from e.g. a camera.
 """
 from __future__ import annotations
 
-from typing import List
+from typing import List, Dict
 from os.path import abspath, isdir, dirname, join, exists, expanduser, split, \
     splitext
 import psutil
@@ -13,7 +13,7 @@ from ffpyplayer.pic import ImageLoader
 
 from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty, StringProperty, \
-    ObjectProperty, ListProperty
+    ObjectProperty, ListProperty, DictProperty
 from kivy.clock import Clock
 from kivy.app import App
 from kivy.lang import Builder
@@ -46,7 +46,13 @@ class FilersPlayer(EventDispatcher):
     is used by this player object.
     """
 
-    __config_props__ = ('player_name', 'recorder_name', 'display_rotation')
+    __config_props__ = (
+        'player_name', 'recorder_name', 'display_rotation', 'player_id',
+        'records_with')
+
+    player_id = NumericProperty(0)
+
+    records_with = NumericProperty(-1)
 
     ffmpeg_player: FFmpegPlayer = None
 
@@ -271,6 +277,8 @@ class PlayersContainerWidget(GridLayout):
 
     players: List[FilersPlayer] = ListProperty([])
 
+    player_id_mapping: Dict[int, FilersPlayer] = DictProperty({})
+
     @classmethod
     def get_config_classes(cls):
         return {'players': [FilersPlayer]}
@@ -293,23 +301,47 @@ class PlayersContainerWidget(GridLayout):
         for player, config in zip(self.players, config):
             apply_config(player, config)
 
+        self.recompute_player_id_mapping()
+
         return True
 
-    def add_player(self):
-        player = FilersPlayer()
+    def recompute_player_id_mapping(self):
+        self.player_id_mapping = {p.player_id: p for p in self.players}
+
+    def start_recording(self, player: FilersPlayer):
+        seen = set()
+        mapping = self.player_id_mapping
+
+        while player is not None and player not in seen:
+            player.recorder.record(player.player)
+            seen.add(player)
+            player = mapping.get(player.records_with, None)
+
+    def stop_recording(self, player: FilersPlayer):
+        seen = set()
+        mapping = self.player_id_mapping
+
+        while player is not None and player not in seen:
+            player.recorder.stop()
+            seen.add(player)
+            player = mapping.get(player.records_with, None)
+
+    def add_player(self, player_id=0):
+        player = FilersPlayer(player_id=player_id)
         player.create_widgets()
 
         player.player_widget = widget = PlayerWidget(player=player)
         self.add_widget(widget)
         self.players.append(player)
 
+        self.recompute_player_id_mapping()
+
     def remove_player(self, player: FilersPlayer):
         self.remove_widget(player.player_widget)
         self.players.remove(player)
         player.clean_up()
 
-    def on_kv_post(self, *largs):
-        self.add_player()
+        self.recompute_player_id_mapping()
 
     def clean_up(self):
         for player in self.players:

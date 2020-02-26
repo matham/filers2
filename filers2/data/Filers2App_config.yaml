@@ -1,4 +1,4 @@
-app: {inspect: false, player_num_cols: 2, player_num_rows: null}
+app: {inspect: false, player_id_counter: 1, player_num_cols: null, player_num_rows: 2}
 compression:
   ffmpeg_disable_audio: true
   ffmpeg_num_threads: 0
@@ -55,6 +55,7 @@ recording:
       shutter: {}
       tilt: {}
     recorder_name: video
+    records_with: -1
     rtv:
       metadata_play: [gray, 640, 480, 29.97]
       metadata_play_used: [gray, 640, 480, 29.97]

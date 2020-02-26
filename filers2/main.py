@@ -30,7 +30,8 @@ class Filers2App(BaseKivyApp):
     """The app which runs the GUI.
     """
 
-    __config_props__ = ('player_num_rows', 'player_num_cols')
+    __config_props__ = (
+        'player_num_rows', 'player_num_cols', 'player_id_counter')
 
     yesno_prompt = ObjectProperty(None, allownone=True)
     '''Stores a instance of :class:`YesNoPrompt` that is automatically created
@@ -52,6 +53,8 @@ class Filers2App(BaseKivyApp):
     If empty, :attr:`player_num_rows` must be set to a number, and then the
     columns will be auto-computed from the number of players added.
     """
+
+    player_id_counter = NumericProperty(0)
 
     compression_widget: CompressionWidget = ObjectProperty(None)
 
@@ -88,6 +91,12 @@ class Filers2App(BaseKivyApp):
 
     def on_start(self):
         self.set_tittle()
+        if not self.players_widget.players:
+            self.add_player()
+
+    def add_player(self):
+        self.players_widget.add_player(self.player_id_counter)
+        self.player_id_counter += 1
 
     def set_tittle(self, *largs):
         """ Sets the title of the window.
