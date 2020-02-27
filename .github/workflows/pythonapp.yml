@@ -98,8 +98,9 @@ jobs:
     - name: Make PyInstaller zip app
       run: |
         cd packaging
-        FILERS_NOARCHIVE=0 python -m PyInstaller Filers2.spec
-        FILERS_NOARCHIVE=1 python -m PyInstaller Filers2.spec -y
+        python -m PyInstaller Filers2.spec
+        set FILERS_NOARCHIVE=1
+        python -m PyInstaller Filers2.spec -y
     - name: Upload app as artifact
       uses: actions/upload-artifact@master
       with:
