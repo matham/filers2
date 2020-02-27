@@ -7,6 +7,7 @@ import pyflycap2
 import base_kivy_app
 import cpl_media
 import filers2
+import os
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, \
     get_deps_all, hookspath, runtime_hooks
 try:
@@ -34,7 +35,7 @@ a = Analysis(['../filers2/run_app.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher,
-             noarchive=True,
+             noarchive=os.environ.get('FILERS_NOARCHIVE', '0') == '1',
              **kwargs)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
