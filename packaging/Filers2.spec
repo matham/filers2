@@ -17,7 +17,7 @@ except ImportError:
 
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend([
-    'pyflycap2', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
+    'pkg_resources.py2_warn', 'pyflycap2', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
     'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
     'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
     'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
