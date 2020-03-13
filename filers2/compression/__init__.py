@@ -231,7 +231,9 @@ class MediaContentItem(object):
             parent: pathlib.Path = self.target_filename.parent
             if not parent.exists():
                 os.makedirs(str(parent))
-            proc = subprocess.run(self._cmd, capture_output=True, text=True)
+            proc = subprocess.run(
+                self._cmd, capture_output=True, text=True,
+                stdin=subprocess.PIPE)
         except BaseException as e:
             self.status = 'failed'
             self.result = 'Error: {}\n\n'.format(e)
