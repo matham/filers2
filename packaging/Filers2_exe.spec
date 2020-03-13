@@ -18,6 +18,7 @@ kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend([
     'pkg_resources.py2_warn', 'pyflycap2', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
     'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
+    'kivy.core.window.window_info',
     'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
     'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
     'ffpyplayer.player.player', 'ffpyplayer.player.queue',
