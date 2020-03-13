@@ -95,6 +95,7 @@ jobs:
         rm -r build
         mv dist\Filers2.exe "dist\Filers2_base-${{ matrix.arch }}.exe"
     - name: Make PyInstaller app
+      if: matrix.arch == 'x64'
       run: |
         python -m pip install thorcam
         cd packaging
