@@ -143,6 +143,7 @@
             flat_color: app.theme.accent
             on_release: image_display.rotate_right_reposition()
         FlatImageButton:
+            disabled: pin_btn.state == 'down'
             scale_down_color: True
             source: 'flat_dots_vertical.png'
             flat_color: app.theme.accent
@@ -158,10 +159,10 @@
             source: 'flat_pin.png' if self.state == 'normal' else 'flat_pin_off.png'
             flat_color: app.theme.accent
             on_release:
-                if self.state == 'down': self._old_settings_parent = root.player.player_settings.parent
-                root.player.player_settings.parent.remove_widget(root.player.player_settings)
-                if self.state == 'down': settings_pin_container.add_widget(root.player.player_settings)
-                if self.state == 'normal': self._old_settings_parent.add_widget(root.player.player_settings)
+                if self.state == 'down': self._old_settings_parent = root.player.player_settings.parent.parent
+                root.player.player_settings.parent.parent.remove_widget(root.player.player_settings.parent)
+                if self.state == 'down': settings_pin_container.add_widget(root.player.player_settings.parent)
+                if self.state == 'normal': self._old_settings_parent.add_widget(root.player.player_settings.parent)
         FlatDivider:
             color: app.theme.divider
         ThemedSizedLabel:
