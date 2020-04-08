@@ -1,5 +1,5 @@
-.. _filers2-processing-api:
+.. _filers2-compression-api:
 
-.. automodule:: filers2.processing
+.. automodule:: filers2.compression
    :members:
    :show-inheritance:

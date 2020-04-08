@@ -17,15 +17,4 @@ if you have a pre-compiled app, just run the app by double clicking ``filers2.ex
 
 Complete API documentation is at :ref:`filers2-root-api`.
 
-Screenshots
------------
-
-The following image shows a screenshot of the app playing two video streams and
-saving one of them to disk.
-
-.. image:: images/player.png
-
-The following image shows a screenshot of the app compressing pre-recorded
-video files.
-
-.. image:: images/compressing.png
+See the :ref:`user-guide` for complete usage instructions.
