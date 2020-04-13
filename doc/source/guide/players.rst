@@ -1,6 +1,8 @@
 Managing players
 ----------------
 
+Filers2 can be configured with one or more "players" at any given time. A :ref:`player <player_root>` instance is associated with exactly one :ref:`video source <player_type>`, such as a camera, a streaming server, or a video file on disk. The player will display this video and can be configured to stream it out to a :ref:`recorder <recorder_control>`.
+
 Adding/removing players
 ***********************
 
@@ -12,7 +14,7 @@ This will add a new independent player on screen.
 
 .. image:: ../images/guide/2_players_vertical.png
 
-If a player is not needed anymore, it can be deleted from the grid by pressing the trash button. This will delete the camera.
+If a player is not needed anymore, it can be deleted from the grid by pressing the trash button. This will delete the player.
 
 .. image:: ../images/guide/delete_player.png
 

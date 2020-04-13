@@ -1,12 +1,20 @@
+.. _recorder_control:
+
 Recorder
 --------
+
+**Recorder** is the general term used for the setting that specifies the "recorder sink" to which a Filers2 player sends its video stream. If there is no recorder specified, the video is simply displayed on screen. A video file on disk is the most typical recorder sink, but streaming data also can be sent to a virtual server to be received by another Filers2 player or a third-party software package, or saved as images.
+
+Each player's recorder can be independently configured.
+
+.. image:: ../images/guide/recorder_blank.png
+
+.. _record_config:
 
 Recorder configuration
 **********************
 
-.. image:: ../images/guide/recorder_blank.png
-
-Similar to the player, one must first select the type of recorder that will be used. In the record bar click the record type dropdown menu.
+Similar to the player source, one must first select the type of recorder sink that will be used by the recorder to "save" the video. In the record bar click the record sink dropdown menu.
 
 .. image:: ../images/guide/record_source_highlight.png
 
@@ -50,17 +58,19 @@ This will pop open a file browser with the image name pre-filled to the video na
 
 .. image:: ../images/guide/save_screenshot.png
 
-The pie icon indicates how full the disk is on the drive where the video is being saved.
+The pie icon indicates how full the disk is on the drive where the video is being saved. Red indicates the proportion of used space, while yellow is the remaining free space.
 
 .. image:: ../images/guide/pie_highlight.png
 
 Synchronously recording from multiple cameras
 *********************************************
 
-To synchronously start recording from multiple players at once, you need to create a daisy chain of recorders.
+To review, although you can set up as many players as you want, with or without recorders, they can all be started/stopped independently of one another. And similarly, each player can record independently of any other player.
 
-Specifically, in the recorder options you can specify if the recorder should start recording when a specific other player starts recording by seting the ``Records with player #`` dropdown to the appropriate option.
+If you want, instead, to control the recorders associated with a set of players as a single unit, such as for recording from multiple camera angles on a common target, then you need to organize the control of these recorders into a daisy chain, where recoding the first will record from all of them. Note, also, that you still configure the players and their recorders (e.g. data files) independently ahead of time.
 
-So, if there are three players A, B, and C and it is desired that all three should start and stop recording at the same time. Then set recorder B to record with player A and recorder C to record with player B. Then, when you start and stop recording player A, the other two players will also simultaneously start and stop recording.
+Specifically, in the recorder options you can specify if the recorder should start recording when a specific *other* player starts recording by setting the ``Records with player #`` dropdown to the appropriate other player number.
+
+To set up three players (A, B, and C) to record synchronously, choose one (e.g. ``A``) to be the master player. Then set player ``B`` to ``record with player #A`` and set player ``C`` to ``record with player #B``. Then, when you start and stop recording player ``A``, the other two players will also simultaneously start and stop recording.
 
 .. image:: ../images/guide/recorder_video_default.png

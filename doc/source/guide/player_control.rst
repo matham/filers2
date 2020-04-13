@@ -1,5 +1,11 @@
+.. _player_root:
+
 Player
 ------
+
+Each player instance can be independently configured, played, and recorded from using the following controls.
+
+.. _player_config:
 
 Player configuration
 ********************
