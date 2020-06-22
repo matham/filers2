@@ -24,9 +24,11 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.logger import Logger
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.recycleview.views import RecycleKVIDsDataViewBehavior
 from kivy.uix.gridlayout import GridLayout
 
 from base_kivy_app.app import app_error, report_exception_in_app
+from base_kivy_app.utils import pretty_space
 
 
 class SourcePath(EventDispatcher):
@@ -193,18 +195,21 @@ class MediaContentItem(object):
         else:
             self.target_file_size = 0
 
-    def get_data(self):
+    def get_gui_data(self):
+        size = self.target_file_size
+        target_size = pretty_space(size) if size else ''
+
         return {
-            'filename': str(self.filename),
-            'target_filename': str(self.target_filename),
+            'filename.text': str(self.filename),
+            'target_filename.text': str(self.target_filename),
             'exists': self.exists,
-            'file_size': self.file_size,
+            'file_size.text': pretty_space(self.file_size),
             'command': self.command,
             'result': self.result,
             'status': self.status,
             'media_item': self,
-            'skip': self.skip,
-            'target_file_size': self.target_file_size
+            'skip.state': 'down' if self.skip else 'normal',
+            'target_file_size.text': target_size,
         }
 
     def prepare_process_file(self, ffmpeg_binary, ffmpeg_opts: list):
@@ -489,7 +494,8 @@ class CompressionManager(EventDispatcher):
                     obj, skip = value
                     obj.skip = skip
                     kivy_queue_put(
-                        ('update_media_item', (obj.item_index, obj.get_data()))
+                        ('update_media_item',
+                         (obj.item_index, obj.get_gui_data()))
                     )
                 elif msg == 'refresh_contents':
                     self.refresh_sources_contents(value[0])
@@ -605,7 +611,7 @@ class CompressionManager(EventDispatcher):
 
     def flatten_files(self, set_index=False) -> List[dict]:
         items = list((
-            item.get_data() for source in self.sources
+            item.get_gui_data() for source in self.sources
             for item in source.contents))
 
         if set_index:
@@ -693,13 +699,13 @@ class CompressionManager(EventDispatcher):
                     item.prepare_process_file(ffmpeg_binary, ffmpeg_opts)
                     queue_put(
                         ('update_media_item',
-                         (item.item_index, item.get_data()))
+                         (item.item_index, item.get_gui_data()))
                     )
 
                     item.process_file()
                     queue_put(
                         ('update_media_item',
-                         (item.item_index, item.get_data()))
+                         (item.item_index, item.get_gui_data()))
                     )
                     if item.status != 'done':
                         queue_put(('increment', (self, 'num_failed_files', 1)))
@@ -744,7 +750,7 @@ class SourceWidget(BoxLayout):
             self.manager.create_source(item)
 
 
-class MediaItemView(GridLayout):
+class MediaItemView(RecycleKVIDsDataViewBehavior, GridLayout):
     pass
 
 

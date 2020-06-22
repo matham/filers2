@@ -205,16 +205,11 @@
     size_hint_y: None
     height: self.minimum_height
     rows: 2
-    filename: ''
-    target_filename: ''
     exists: False
-    file_size: 0
-    target_file_size: 0
     command: ''
     result: ''
     status: ''
     media_item: None
-    skip: False
     padding: '10dp', '2dp'
     canvas:
         Color:
@@ -230,7 +225,7 @@
         bold: True
         center_texture: False
     FlatLabel:
-        text: root.filename
+        id: filename
         flat_color: app.theme.text_primary
         text_size: self.width, None
         shorten: True
@@ -238,20 +233,20 @@
         size_hint_min_x: '100dp'
         padding_y: '2dp'
     FlatLabel:
-        text: '{}'.format(pretty_space(root.file_size))
+        id: file_size
         size: max(self.texture_size[0], self.width), self.texture_size[1]
         size_hint: None, None
         flat_color: app.theme.text_primary
         bold: True
         center_texture: False
     FlatToggleButton:
+        id: skip
         disabled: root.status == 'processing' or root.exists
         text: "Don't skip" if self.state == 'normal' else 'Skip'
         size_hint: None, None
         size: max(self.texture_size[0], self.width), self.texture_size[1]
         padding_x: '1dp'
         bold: True
-        state: 'down' if root.skip else 'normal'
         on_release: app.compression_manager.request_set_skip(root.media_item, self.state == 'down')
         scale_down_color: True
         flat_color: app.theme.text_primary
@@ -273,7 +268,7 @@
         bold: True
         center_texture: False
     FlatLabel:
-        text: root.target_filename
+        id: target_filename
         flat_color: app.theme.text_primary
         text_size: self.width, None
         shorten: True
@@ -281,7 +276,7 @@
         size_hint_min_x: '100dp'
         padding_y: '2dp'
     FlatLabel:
-        text: '{}'.format(pretty_space(root.target_file_size)) if root.target_file_size else ''
+        id: target_file_size
         size: max(self.texture_size[0], self.width), self.texture_size[1]
         size_hint: None, None
         flat_color: app.theme.text_primary
