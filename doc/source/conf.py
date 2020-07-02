@@ -16,7 +16,7 @@ import sphinx_rtd_theme
 import kivy  # this adds KIVY_DOC_INCLUDE to env
 import filers2
 from filers2.main import Filers2App
-from base_kivy_app.config import create_doc_listener, write_config_attrs_rst
+from base_kivy_app.config import create_doc_listener, write_config_props_rst
 
 
 # -- Project information -----------------------------------------------------
@@ -74,10 +74,13 @@ html_logo = 'images/filers2_icon.png'
 
 
 def setup(app):
-    fname = os.environ.get('BASEKIVYAPP_CONFIG_DOC_PATH', 'config_attrs.json')
-    create_doc_listener(app, filers2, fname)
+    yaml_filename = os.environ.get(
+        'TREE_CONFIG_DOC_YAML_PATH', 'config_prop_docs.yaml')
+    rst_filename = os.environ.get('TREE_CONFIG_DOC_RST_PATH', 'config.rst')
+    create_doc_listener(app, 'filers2', yaml_filename)
 
     app.connect(
         'build-finished', partial(
-            write_config_attrs_rst, Filers2App, filers2, filename=fname)
+            write_config_props_rst, Filers2App, 'Filers2',
+            filename=yaml_filename, rst_filename=rst_filename)
     )

@@ -30,8 +30,12 @@ class Filers2App(BaseKivyApp):
     """The app which runs the GUI.
     """
 
-    __config_props__ = (
+    _config_props_ = (
         'player_num_rows', 'player_num_cols', 'player_id_counter')
+
+    _config_children_ = {
+        'recording': 'players_widget', 'compression': 'compression_manager',
+    }
 
     yesno_prompt = ObjectProperty(None, allownone=True)
     '''Stores a instance of :class:`YesNoPrompt` that is automatically created
@@ -59,19 +63,6 @@ class Filers2App(BaseKivyApp):
     compression_widget: CompressionWidget = ObjectProperty(None)
 
     compression_manager: CompressionManager = None
-
-    @classmethod
-    def get_config_classes(cls):
-        d = super(Filers2App, cls).get_config_classes()
-        d['recording'] = PlayersContainerWidget
-        d['compression'] = CompressionManager
-        return d
-
-    def get_config_instances(self):
-        d = super(Filers2App, self).get_config_instances()
-        d['recording'] = self.players_widget
-        d['compression'] = self.compression_manager
-        return d
 
     def __init__(self, open_player_thread=True, **kwargs):
         super(Filers2App, self).__init__(**kwargs)

@@ -254,9 +254,10 @@ class MediaContentItem(object):
 
 class CompressionManager(EventDispatcher):
 
-    __config_props__ = (
+    _config_props_ = (
         'target_root', 'target_suffix', 'match_suffix', 'ffmpeg_vcodec',
-        'ffmpeg_vcodec_opts', 'ffmpeg_disable_audio', 'ffmpeg_num_threads')
+        'ffmpeg_vcodec_opts', 'ffmpeg_disable_audio', 'ffmpeg_num_threads',
+        'sources')
 
     target_root = StringProperty('')
 
@@ -355,27 +356,26 @@ class CompressionManager(EventDispatcher):
     def _update_elapsed_time(self, *largs):
         self.elapsed_time = time.perf_counter() - self._start_processing_time
 
-    def get_config_properties(self):
+    def get_config_property(self, name):
         """(internal) used by the config system to get the list of config
         sources.
         """
-        return {
-            'sources':
-                [{'source': str(source.source),
-                  'source_viz': source.source_viz}
-                 for source in self.sources]
-        }
+        if name == 'sources':
+            return [{
+                'source': str(source.source), 'source_viz': source.source_viz}
+                for source in self.sources]
+        return getattr(self, name)
 
-    def apply_config_properties(self, settings):
+    def apply_config_property(self, name, value):
         """(internal) used by the config system to set the sources.
         """
-        if 'sources' in settings:
-            for data in settings['sources']:
+        if name == 'sources':
+            for data in value:
                 source = self.create_source()
                 source.apply_config_properties(
                     data.get('source', ''), data.get('source_viz', ''))
-            return {'sources'}
-        return set()
+        else:
+            setattr(self, name, value)
 
     def locate_ffmpeg(self):
         paths = []

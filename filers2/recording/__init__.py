@@ -46,9 +46,17 @@ class FilersPlayer(EventDispatcher):
     is used by this player object.
     """
 
-    __config_props__ = (
+    _config_props_ = (
         'player_name', 'recorder_name', 'display_rotation', 'player_id',
         'records_with')
+
+    _config_children_ = {
+        'ffmpeg': 'ffmpeg_player', 'ptgray': 'ptgray_player',
+        'thor': 'thor_player', 'network_client': 'client_player',
+        'rtv': 'rtv_player', 'image_file_recorder': 'image_file_recorder',
+        'video_recorder': 'video_recorder',
+        'server_recorder': 'server_recorder',
+    }
 
     player_id = NumericProperty(0)
 
@@ -124,31 +132,6 @@ class FilersPlayer(EventDispatcher):
     player_widget: PlayerWidget = None
 
     display_rotation = NumericProperty(0)
-
-    @classmethod
-    def get_config_classes(cls):
-        return {
-            'ffmpeg': FFmpegPlayer,
-            'ptgray': PTGrayPlayer,
-            'thor': ThorCamPlayer,
-            'network_client': RemoteVideoPlayer,
-            'rtv': RTVPlayer,
-            'image_file_recorder': ImageFileRecorder,
-            'video_recorder': VideoRecorder,
-            'server_recorder': RemoteVideoRecorder,
-        }
-
-    def get_config_instances(self):
-        return {
-            'ffmpeg': self.ffmpeg_player,
-            'ptgray': self.ptgray_player,
-            'thor': self.thor_player,
-            'network_client': self.client_player,
-            'rtv': self.rtv_player,
-            'image_file_recorder': self.image_file_recorder,
-            'video_recorder': self.video_recorder,
-            'server_recorder': self.server_recorder,
-        }
 
     def __init__(self, open_player_thread=True, **kwargs):
         super(FilersPlayer, self).__init__(**kwargs)
@@ -275,20 +258,16 @@ class PlayerWidget(BoxLayout):
 
 class PlayersContainerWidget(GridLayout):
 
+    _config_children_ = {'players': 'players'}
+
     players: List[FilersPlayer] = ListProperty([])
 
     player_id_mapping: Dict[int, FilersPlayer] = DictProperty({})
 
-    @classmethod
-    def get_config_classes(cls):
-        return {'players': [FilersPlayer]}
-
-    def get_config_instances(self):
-        return {'players': self.players}
-
-    def apply_config_instance(self, name, obj, config):
-        if name != 'players':
-            return False
+    def apply_config_child(self, name, prop, obj, config):
+        if prop != 'players':
+            apply_config(obj, config)
+            return
 
         while len(config) < len(self.players):
             player = self.players.pop()
