@@ -1,0 +1,45 @@
+FILERS2 Config
+==============
+
+The following are the configuration options provided by the app. It can be configured by changing appropriate values in the ``config.yaml`` settings file. The options default to the default value of the classes for each of the options.
+
+`inspect`: <BooleanProperty name=>
+ Enables GUI inspection. If True, it is activated by hitting ctrl-e in
+ the GUI.
+
+`player_id_counter`: <NumericProperty name=>
+
+`player_num_cols`: <NumericProperty name=>
+ The number of columns used by the grid displaying all the players.
+ If empty, :attr:`player_num_rows` must be set to a number, and then the
+ columns will be auto-computed from the number of players added.
+
+`player_num_rows`: <NumericProperty name=>
+ The number of rows used by the grid displaying all the players.
+ If empty, :attr:`player_num_cols` must be set to a number, and then the
+ rows will be auto-computed from the number of players added.
+
+
+recording
+---------
+
+
+compression
+-----------
+
+`ffmpeg_disable_audio`: <BooleanProperty name=>
+
+`ffmpeg_num_threads`: <NumericProperty name=>
+
+`ffmpeg_vcodec`: <StringProperty name=>
+
+`ffmpeg_vcodec_opts`: <ListProperty name=>
+
+`match_suffix`: <StringProperty name=>
+
+`sources`: []
+
+`target_root`: <StringProperty name=>
+
+`target_suffix`: <StringProperty name=>
+
