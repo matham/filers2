@@ -27,7 +27,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview.views import RecycleKVIDsDataViewBehavior
 from kivy.uix.gridlayout import GridLayout
 
-from base_kivy_app.app import app_error, report_exception_in_app
+from more_kivy_app.app import app_error, report_exception_in_app
 from base_kivy_app.utils import pretty_space
 
 

@@ -3,7 +3,7 @@ Filers2
 
 Video tools for recording experiments.
 
-For more information: http://matham.github.io/filers2/index.html
+For more information: https://matham.github.io/filers2/index.html
 
 To install https://matham.github.io/filers2/installation.html
 

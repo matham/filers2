@@ -20,7 +20,7 @@ from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 
-from base_kivy_app.config import apply_config
+from more_kivy_app.config import apply_config
 
 from cpl_media.ptgray import PTGrayPlayer, PTGraySettingsWidget
 from cpl_media.ffmpeg import FFmpegPlayer, FFmpegSettingsWidget

@@ -29,7 +29,8 @@ setup(
     ],
     packages=find_packages(),
     install_requires=[
-        'base_kivy_app', 'ffpyplayer', 'kivy', 'psutil', 'tree-config'],
+        'base_kivy_app~=0.1.1', 'ffpyplayer', 'kivy~=2.0.0', 'psutil',
+        'cpl_media~=0.1.2', 'tree-config~=0.1.1'],
     extras_require={
         'dev': ['pytest>=3.6', 'pytest-cov', 'flake8', 'sphinx-rtd-theme',
                 'coveralls', 'trio', 'pytest-trio', 'pyinstaller'],
