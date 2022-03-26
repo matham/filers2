@@ -15,10 +15,9 @@ setup(
     name='filers2',
     version=__version__,
     author='Matthew Einhorn',
-    author_email='moiein2000@gmail.com',
+    author_email='matt@einhorn.dev',
     license='MIT',
-    description=(
-        'Video tools for recording experiments.'),
+    description='Video tools for recording experiments.',
     long_description=long_description,
     url=URL,
     classifiers=[
@@ -26,14 +25,17 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     packages=find_packages(),
     install_requires=[
-        'base_kivy_app~=0.1.1', 'ffpyplayer', 'kivy~=2.0.0', 'psutil',
+        'base_kivy_app~=0.1.1', 'ffpyplayer', 'kivy~=2.1.0', 'psutil',
         'cpl_media~=0.1.2', 'tree-config~=0.1.1'],
     extras_require={
-        'dev': ['pytest>=3.6', 'pytest-cov', 'flake8', 'sphinx-rtd-theme',
-                'coveralls', 'trio', 'pytest-trio', 'pyinstaller'],
+        'dev': [
+            'pytest>=3.6', 'pytest-cov', 'flake8', 'sphinx-rtd-theme',
+            'coveralls', 'trio', 'pytest-trio', 'pyinstaller'],
     },
     package_data={'filers2': ['*.kv', '**/*.kv']},
     project_urls={
