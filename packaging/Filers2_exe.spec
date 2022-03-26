@@ -4,15 +4,18 @@ block_cipher = None
 from kivy_deps import sdl2, glew
 import ffpyplayer
 import pyflycap2
+import sys
+import pathlib
 import base_kivy_app
 import cpl_media
 import filers2
 from kivy.tools.packaging.pyinstaller_hooks import get_deps_minimal, \
     get_deps_all, hookspath, runtime_hooks
 try:
+    import clr_loader
     import thorcam
 except ImportError:
-    thorcam = None
+    clr_loader = thorcam = None
 
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend([
@@ -27,9 +30,17 @@ kwargs['hiddenimports'].extend([
     'plyer.facades.filechooser'] + (['thorcam'] if thorcam else []))
 
 
+clr_datas = []
+if clr_loader is not None:
+    root = pathlib.Path(sys.modules['clr_loader'].__file__).parent
+    for pat in ('**/*.dll', '*.dll'):
+        for f in root.glob(pat):
+            clr_datas.append((str(f), str(f.relative_to(root.parent).parent)))
+
+
 a = Analysis(['../filers2/run_app.py'],
              pathex=['.'],
-             datas=base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas(),
+             datas=base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas() + clr_datas,
              hookspath=hookspath(),
              runtime_hooks=runtime_hooks(),
              win_no_prefer_redirects=False,
