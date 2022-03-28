@@ -20,6 +20,7 @@ from kivy.properties import ObjectProperty, BooleanProperty, NumericProperty
 import filers2.utils
 from filers2.recording import PlayersContainerWidget
 from filers2.compression import CompressionManager, CompressionWidget
+from cpl_media.ffmpeg import LogFilter
 
 from kivy.core.window import Window
 
@@ -64,6 +65,8 @@ class Filers2App(BaseKivyApp):
 
     compression_manager: CompressionManager = None
 
+    log_filter: LogFilter = None
+
     def __init__(self, open_player_thread=True, **kwargs):
         super(Filers2App, self).__init__(**kwargs)
 
@@ -84,6 +87,9 @@ class Filers2App(BaseKivyApp):
         self.set_tittle()
         if not self.players_widget.players:
             self.add_player()
+
+        log_filter = self.log_filter = LogFilter()
+        log_filter.start_filter()
 
     def add_player(self):
         self.players_widget.add_player(self.player_id_counter)
