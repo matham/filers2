@@ -230,7 +230,12 @@ class FilersPlayer(EventDispatcher):
 
         if not isdir(dirname(paths[0])):
             raise Exception('Invalid path or filename')
-        BaseRecorder.save_image(paths[0], img)
+
+        fname = paths[0]
+        if not fname.endswith('.bmp'):
+            fname += '.bmp'
+
+        BaseRecorder.save_image(fname, img)
 
     def stop(self):
         for player in (
