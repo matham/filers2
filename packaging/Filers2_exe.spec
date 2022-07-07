@@ -3,7 +3,7 @@
 block_cipher = None
 from kivy_deps import sdl2, glew
 import ffpyplayer
-import pyflycap2
+import rotpy
 import sys
 import pathlib
 import base_kivy_app
@@ -19,7 +19,7 @@ except ImportError:
 
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend([
-    'pkg_resources.py2_warn', 'pyflycap2', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
+    'pkg_resources.py2_warn', 'rotpy', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
     'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
     'kivy.core.window.window_info',
     'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
@@ -55,7 +55,7 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + pyflycap2.dep_bins + (thorcam.dep_bins if thorcam else []))],
+          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))],
           name='Filers2',
           debug=False,
           bootloader_ignore_signals=False,

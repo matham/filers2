@@ -3,7 +3,7 @@ Introduction
 
 Filers2 is a tool that can play and record video from webcams and other media sources.
 
-It supports playing typical USB-WebCams and webstreams. It can also play from cameras such the Point Gray or Thor scientific cameras.
+It supports playing typical USB-WebCams and webstreams. It can also play from cameras such the Flir or Thor scientific cameras.
 
 Filers2 can also be set up to stream the video on a network to another Filers2 instance.
 

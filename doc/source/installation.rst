@@ -33,7 +33,7 @@ We'll make the virtual env in home:
 Install manual python dependencies
 **********************************
 
-* If using a **PointGray camera**, on linux we must manually install its libraries
+* If using a **Flir camera**, on linux we must manually install its libraries
 
   * Get it from `here <https://www.flir.com/products/flycapture-sdk>`_, extract it and install by running ``install_flycapture.sh``.
   * Figure out your python version, find the appropriate linux wheel of the last release
@@ -61,7 +61,7 @@ directory. The terminal should be in the home directory
 Install manual python dependencies
 **********************************
 
-* If using a **PointGray camera** install with ``pip install pyflycap2``.
+* If using a **Flir camera** install with ``pip install rotpy``.
 
   * If successful, you should be able to run
     ``python -c "from pyflycap2.interface import CameraContext; cc = CameraContext(); cc.rescan_bus(); print(cc.get_gige_cams())"``

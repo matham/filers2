@@ -3,7 +3,7 @@
 Player Sources
 --------------
 
-Filers2 supports multiple camera types and media sources for each player. Examples are webcams, webstreams, PointGray cameras or Thor cameras.
+Filers2 supports multiple camera types and media sources for each player. Examples are webcams, webstreams, Flir cameras or Thor cameras.
 
 Following is an overview of each of them. Each source can be selected in the :ref:`player dropdown menu <player_config>`.
 
@@ -98,6 +98,6 @@ See the recording documentation for more details.
 Thor
 ****
 
-PointGray
+Flir
 *********
 

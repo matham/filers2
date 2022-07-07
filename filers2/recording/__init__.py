@@ -22,7 +22,7 @@ from kivy.uix.gridlayout import GridLayout
 
 from more_kivy_app.config import apply_config
 
-from cpl_media.ptgray import PTGrayPlayer, PTGraySettingsWidget
+from cpl_media.rotpy import FlirPlayer, FlirSettingsWidget
 from cpl_media.ffmpeg import FFmpegPlayer, FFmpegSettingsWidget
 from cpl_media.thorcam import ThorCamPlayer, ThorCamSettingsWidget
 from cpl_media.rtv import RTVPlayer, RTVSettingsWidget
@@ -51,7 +51,7 @@ class FilersPlayer(EventDispatcher):
         'records_with')
 
     _config_children_ = {
-        'ffmpeg': 'ffmpeg_player', 'ptgray': 'ptgray_player',
+        'ffmpeg': 'ffmpeg_player', 'flir': 'flir_player',
         'thor': 'thor_player', 'network_client': 'client_player',
         'rtv': 'rtv_player', 'image_file_recorder': 'image_file_recorder',
         'video_recorder': 'video_recorder',
@@ -66,9 +66,9 @@ class FilersPlayer(EventDispatcher):
 
     ffmpeg_settings = None
 
-    ptgray_player: PTGrayPlayer = None
+    flir_player: FlirPlayer = None
 
-    ptgray_settings = None
+    flir_settings = None
 
     thor_player: ThorCamPlayer = None
 
@@ -92,7 +92,7 @@ class FilersPlayer(EventDispatcher):
 
     player_to_raw_name_map = {
         'Webcam/File': 'ffmpeg', 'Network': 'client', 'Thor': 'thor',
-        'PointGray': 'ptgray',
+        'Flir': 'flir',
     }
 
     player_to_nice_name_map = {v: k for k, v in player_to_raw_name_map.items()}
@@ -137,7 +137,7 @@ class FilersPlayer(EventDispatcher):
         super(FilersPlayer, self).__init__(**kwargs)
 
         self.ffmpeg_player = FFmpegPlayer()
-        self.ptgray_player = PTGrayPlayer(open_thread=open_player_thread)
+        self.flir_player = FlirPlayer(open_thread=open_player_thread)
         self.thor_player = ThorCamPlayer(open_thread=open_player_thread)
         self.client_player = RemoteVideoPlayer()
         self.rtv_player = RTVPlayer()
@@ -153,7 +153,7 @@ class FilersPlayer(EventDispatcher):
         self._update_recorder()
 
         self.ffmpeg_player.display_frame = self.display_frame
-        self.ptgray_player.display_frame = self.display_frame
+        self.flir_player.display_frame = self.display_frame
         self.thor_player.display_frame = self.display_frame
         self.client_player.display_frame = self.display_frame
         self.rtv_player.display_frame = self.display_frame
@@ -172,7 +172,7 @@ class FilersPlayer(EventDispatcher):
 
     def create_widgets(self):
         self.ffmpeg_settings = FFmpegSettingsWidget(player=self.ffmpeg_player)
-        self.ptgray_settings = PTGraySettingsWidget(player=self.ptgray_player)
+        self.flir_settings = FlirSettingsWidget(player=self.flir_player)
         self.thor_settings = ThorCamSettingsWidget(player=self.thor_player)
         self.client_settings = ClientPlayerSettingsWidget(
             player=self.client_player)
@@ -241,7 +241,7 @@ class FilersPlayer(EventDispatcher):
         for player in (
                 self.ffmpeg_player, self.thor_player, self.client_player,
                 self.image_file_recorder, self.video_recorder,
-                self.ptgray_player, self.rtv_player, self.server_recorder):
+                self.flir_player, self.rtv_player, self.server_recorder):
             if player is not None:
                 player.stop()
 
@@ -249,7 +249,7 @@ class FilersPlayer(EventDispatcher):
         for player in (
                 self.ffmpeg_player, self.thor_player, self.client_player,
                 self.image_file_recorder, self.video_recorder,
-                self.ptgray_player, self.rtv_player, self.server_recorder):
+                self.flir_player, self.rtv_player, self.server_recorder):
             if player is not None:
                 player.stop_all(join=True)
 

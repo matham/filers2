@@ -148,7 +148,7 @@
             source: 'flat_dots_vertical.png'
             flat_color: app.theme.accent
             ffmpeg_dropdown: ffmpeg.__self__
-            ptgray_dropdown: ptgray.__self__
+            flir_dropdown: flir.__self__
             thor_dropdown: thor.__self__
             client_dropdown: client.__self__
             rtv_dropdown: rtv.__self__
@@ -227,12 +227,12 @@
                 self.settings_container.add_widget(root.player.ffmpeg_settings)
                 self.parent.remove_widget(self)
         PlayerSettingsDropdown:
-            id: ptgray
-            real_rate: root.player.ptgray_player.real_rate
-            data_rate: root.player.ptgray_player.data_rate
-            player_summery: root.player.ptgray_player.player_summery
+            id: flir
+            real_rate: root.player.flir_player.real_rate
+            data_rate: root.player.flir_player.data_rate
+            player_summery: root.player.flir_player.player_summery
             on_kv_post:
-                self.settings_container.add_widget(root.player.ptgray_settings)
+                self.settings_container.add_widget(root.player.flir_settings)
                 self.parent.remove_widget(self)
         PlayerSettingsDropdown:
             id: thor
