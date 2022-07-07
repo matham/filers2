@@ -6,6 +6,7 @@ import ffpyplayer
 import rotpy
 import sys
 import pathlib
+from PyInstaller.utils.hooks import collect_submodules
 import base_kivy_app
 import cpl_media
 import filers2
@@ -19,16 +20,13 @@ except ImportError:
     clr_loader = thorcam = None
 
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
-kwargs['hiddenimports'].extend([
-    'pkg_resources.py2_warn', 'rotpy', 'ffpyplayer', 'ffpyplayer.pic', 'win32timezone',
-    'ffpyplayer.threading', 'ffpyplayer.tools', 'ffpyplayer.writer',
-    'kivy.core.window.window_info',
-    'ffpyplayer.player', 'ffpyplayer.player.clock', 'ffpyplayer.player.core',
-    'ffpyplayer.player.decoder', 'ffpyplayer.player.frame_queue',
-    'ffpyplayer.player.player', 'ffpyplayer.player.queue',
-    'numpy.random.common', 'numpy.random.bounded_integers',
-    'numpy.random.entropy', 'plyer.platforms.win.filechooser',
-    'plyer.facades.filechooser'] + (['thorcam'] if thorcam else []))
+kwargs['hiddenimports'].extend(['kivy.core.window.window_info'])
+kwargs['hiddenimports'].extend(collect_submodules('ffpyplayer'))
+kwargs['hiddenimports'].extend(collect_submodules('rotpy'))
+kwargs['hiddenimports'].extend(collect_submodules('plyer'))
+kwargs['hiddenimports'].extend(collect_submodules('win32timezone'))
+if thorcam:
+    kwargs['hiddenimports'].extend(collect_submodules('thorcam'))
 
 
 clr_datas = []
