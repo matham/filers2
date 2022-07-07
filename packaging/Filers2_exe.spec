@@ -23,9 +23,9 @@ kwargs['hiddenimports'].extend(['kivy.core.window.window_info'])
 kwargs['hiddenimports'].extend(collect_submodules('ffpyplayer'))
 kwargs['hiddenimports'].extend(collect_submodules('rotpy'))
 kwargs['hiddenimports'].extend(collect_submodules('plyer'))
-kwargs['hiddenimports'].extend(collect_submodules('win32timezone'))
 if thorcam:
     kwargs['hiddenimports'].extend(collect_submodules('thorcam'))
+print(kwargs)
 
 clr_datas = []
 if clr_loader is not None:
@@ -34,7 +34,7 @@ if clr_loader is not None:
         for f in root.glob(pat):
             clr_datas.append((str(f), str(f.relative_to(root.parent).parent)))
 
-
+print(base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas() + clr_datas)
 a = Analysis(['../filers2/run_app.py'],
              pathex=['.'],
              datas=base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas() + clr_datas,
@@ -45,9 +45,15 @@ a = Analysis(['../filers2/run_app.py'],
              cipher=block_cipher,
              noarchive=False,
              **kwargs)
+splash = Splash('../doc/source/images/filers2_icon.png',
+                binaries=a.binaries,
+                datas=a.datas,
+                text_pos=(10, 50))
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
+          splash,
+          splash.binaries,
           a.scripts,
           a.binaries,
           a.zipfiles,
@@ -62,3 +68,4 @@ exe = EXE(pyz,
           runtime_tmpdir=None,
           console=False,
           icon='..\\doc\\source\\images\\filers2_icon.ico')
+print([Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))])
