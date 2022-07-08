@@ -18,6 +18,8 @@ try:
 except ImportError:
     clr_loader = thorcam = None
 
+rotpy_dep_bins = [s for s in rotpy.dep_bins if 'spinnaker' in s]
+
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend(['kivy.core.window.window_info'])
 kwargs['hiddenimports'].extend(collect_submodules('ffpyplayer'))
@@ -25,7 +27,6 @@ kwargs['hiddenimports'].extend(collect_submodules('rotpy'))
 kwargs['hiddenimports'].extend(collect_submodules('plyer'))
 if thorcam:
     kwargs['hiddenimports'].extend(collect_submodules('thorcam'))
-print(kwargs)
 
 clr_datas = []
 if clr_loader is not None:
@@ -34,7 +35,6 @@ if clr_loader is not None:
         for f in root.glob(pat):
             clr_datas.append((str(f), str(f.relative_to(root.parent).parent)))
 
-print(base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas() + clr_datas)
 a = Analysis(['../filers2/run_app.py'],
              pathex=['.'],
              datas=base_kivy_app.get_pyinstaller_datas() + cpl_media.get_pyinstaller_datas() + filers2.get_pyinstaller_datas() + clr_datas,
@@ -58,7 +58,7 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))],
+          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy_dep_bins + (thorcam.dep_bins if thorcam else []))],
           name='Filers2',
           debug=False,
           bootloader_ignore_signals=False,
@@ -68,4 +68,3 @@ exe = EXE(pyz,
           runtime_tmpdir=None,
           console=False,
           icon='..\\doc\\source\\images\\filers2_icon.ico')
-print([Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))])
