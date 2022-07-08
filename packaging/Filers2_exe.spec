@@ -18,12 +18,13 @@ try:
 except ImportError:
     clr_loader = thorcam = None
 
+rotpy_dep_bins = [s for s in rotpy.dep_bins if 'spinnaker' in s]
+
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend(['kivy.core.window.window_info'])
 kwargs['hiddenimports'].extend(collect_submodules('ffpyplayer'))
 kwargs['hiddenimports'].extend(collect_submodules('rotpy'))
 kwargs['hiddenimports'].extend(collect_submodules('plyer'))
-kwargs['hiddenimports'].extend(collect_submodules('win32timezone'))
 if thorcam:
     kwargs['hiddenimports'].extend(collect_submodules('thorcam'))
 
@@ -33,7 +34,6 @@ if clr_loader is not None:
     for pat in ('**/*.dll', '*.dll'):
         for f in root.glob(pat):
             clr_datas.append((str(f), str(f.relative_to(root.parent).parent)))
-
 
 a = Analysis(['../filers2/run_app.py'],
              pathex=['.'],
@@ -45,14 +45,20 @@ a = Analysis(['../filers2/run_app.py'],
              cipher=block_cipher,
              noarchive=False,
              **kwargs)
+splash = Splash('../doc/source/images/filers2_icon.png',
+                binaries=a.binaries,
+                datas=a.datas,
+                text_pos=(10, 50))
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
+          splash,
+          splash.binaries,
           a.scripts,
           a.binaries,
           a.zipfiles,
           a.datas,
-          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))],
+          *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy_dep_bins + (thorcam.dep_bins if thorcam else []))],
           name='Filers2',
           debug=False,
           bootloader_ignore_signals=False,

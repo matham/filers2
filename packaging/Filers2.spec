@@ -19,12 +19,13 @@ try:
 except ImportError:
     clr_loader = thorcam = None
 
+rotpy_dep_bins = [s for s in rotpy.dep_bins if 'spinnaker' in s]
+
 kwargs = get_deps_minimal(video=None, audio=None, camera=None)
 kwargs['hiddenimports'].extend(['kivy.core.window.window_info'])
 kwargs['hiddenimports'].extend(collect_submodules('ffpyplayer'))
 kwargs['hiddenimports'].extend(collect_submodules('rotpy'))
 kwargs['hiddenimports'].extend(collect_submodules('plyer'))
-kwargs['hiddenimports'].extend(collect_submodules('win32timezone'))
 if thorcam:
     kwargs['hiddenimports'].extend(collect_submodules('thorcam'))
 
@@ -64,7 +65,7 @@ coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
                a.datas,
-               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy.dep_bins + (thorcam.dep_bins if thorcam else []))],
+               *[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins + ffpyplayer.dep_bins + rotpy_dep_bins + (thorcam.dep_bins if thorcam else []))],
                strip=False,
                upx=True,
                upx_exclude=[],
