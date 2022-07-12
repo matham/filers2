@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recorder &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Recorder sinks" href="record_types.html" />
+    <link rel="prev" title="Player Sources" href="player_types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Filers2
+            <img src="../_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">Filers2 User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html">Managing players</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_control.html">Player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_types.html">Player Sources</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Recorder</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recorder-configuration">Recorder configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Recorder control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synchronously-recording-from-multiple-cameras">Synchronously recording from multiple cameras</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="record_types.html">Recorder sinks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">Filers2 App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">The Filers2 API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">Filers2 User Guide</a> &raquo;</li>
+      <li>Recorder</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/record_control.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="recorder">
+<span id="recorder-control"></span><h1>Recorder<a class="headerlink" href="#recorder" title="Permalink to this heading"></a></h1>
+<p><strong>Recorder</strong> is the general term used for the setting that specifies the “recorder sink” to which a Filers2 player sends its video stream. If there is no recorder specified, the video is simply displayed on screen. A video file on disk is the most typical recorder sink, but streaming data also can be sent to a virtual server to be received by another Filers2 player or a third-party software package, or saved as images.</p>
+<p>Each player’s recorder can be independently configured.</p>
+<img alt="../_images/recorder_blank.png" src="../_images/recorder_blank.png" />
+<section id="recorder-configuration">
+<span id="record-config"></span><h2>Recorder configuration<a class="headerlink" href="#recorder-configuration" title="Permalink to this heading"></a></h2>
+<p>Similar to the player source, one must first select the type of recorder sink that will be used by the recorder to “save” the video. In the record bar click the record sink dropdown menu.</p>
+<img alt="../_images/record_source_highlight.png" src="../_images/record_source_highlight.png" />
+<p>This will list the available recording options. This example will use a video file!</p>
+<img alt="../_images/recorder_selection.png" src="../_images/recorder_selection.png" />
+<p>To configure the selected recorder, click the settings button. That will open the selected recorder’s settings.</p>
+<img alt="../_images/record_settings_highlight.png" src="../_images/record_settings_highlight.png" />
+<p>This specific recorder saves the video to a video file.</p>
+<img alt="../_images/recorder_video_default.png" src="../_images/recorder_video_default.png" />
+</section>
+<section id="id1">
+<h2>Recorder control<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<p>Once configured, to start recording the player’s image, just press the record button.
+The record button will be grayed out when the camera is not playing.</p>
+<img alt="../_images/record_button_highlight.png" src="../_images/record_button_highlight.png" />
+<p>Once the camera is playing and the video is being recorded, a timer counting up will display showing the elapsed recording duration.</p>
+<img alt="../_images/recording.png" src="../_images/recording.png" />
+<p>To stop recording, press the record button again and it’ll stop recording. If the player stops playing, the recorder will also stop.</p>
+<img alt="../_images/recorder_stopped.png" src="../_images/recorder_stopped.png" />
+<p>At the top of the recorder setting, it indicates the total size of the current or last recorded files as well as the data rate.</p>
+<img alt="../_images/record_trial_num_bump.png" src="../_images/record_trial_num_bump.png" />
+<p>To save a screenshot of the last image displayed, press the save button.</p>
+<img alt="../_images/save_screenshot_highlight.png" src="../_images/save_screenshot_highlight.png" />
+<p>This will pop open a file browser with the image name pre-filled to the video name.</p>
+<img alt="../_images/save_screenshot.png" src="../_images/save_screenshot.png" />
+<p>The pie icon indicates how full the disk is on the drive where the video is being saved. Red indicates the proportion of used space, while yellow is the remaining free space.</p>
+<img alt="../_images/pie_highlight.png" src="../_images/pie_highlight.png" />
+</section>
+<section id="synchronously-recording-from-multiple-cameras">
+<h2>Synchronously recording from multiple cameras<a class="headerlink" href="#synchronously-recording-from-multiple-cameras" title="Permalink to this heading"></a></h2>
+<p>To review, although you can set up as many players as you want, with or without recorders, they can all be started/stopped independently of one another. And similarly, each player can record independently of any other player.</p>
+<p>If you want, instead, to control the recorders associated with a set of players as a single unit, such as for recording from multiple camera angles on a common target, then you need to organize the control of these recorders into a daisy chain, where recoding the first will record from all of them. Note, also, that you still configure the players and their recorders (e.g. data files) independently ahead of time.</p>
+<p>Specifically, in the recorder options you can specify if the recorder should start recording when a specific <em>other</em> player starts recording by setting the <code class="docutils literal notranslate"><span class="pre">Records</span> <span class="pre">with</span> <span class="pre">player</span> <span class="pre">#</span></code> dropdown to the appropriate other player number.</p>
+<p>To set up three players (A, B, and C) to record synchronously, choose one (e.g. <code class="docutils literal notranslate"><span class="pre">A</span></code>) to be the master player. Then set player <code class="docutils literal notranslate"><span class="pre">B</span></code> to <code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">with</span> <span class="pre">player</span> <span class="pre">#A</span></code> and set player <code class="docutils literal notranslate"><span class="pre">C</span></code> to <code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">with</span> <span class="pre">player</span> <span class="pre">#B</span></code>. Then, when you start and stop recording player <code class="docutils literal notranslate"><span class="pre">A</span></code>, the other two players will also simultaneously start and stop recording.</p>
+<img alt="../_images/recorder_video_default.png" src="../_images/recorder_video_default.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="player_types.html" class="btn btn-neutral float-left" title="Player Sources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="record_types.html" class="btn btn-neutral float-right" title="Recorder sinks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

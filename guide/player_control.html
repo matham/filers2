@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Player Sources" href="player_types.html" />
+    <link rel="prev" title="Managing players" href="players.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Filers2
+            <img src="../_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">Filers2 User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html">Managing players</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Player</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#player-configuration">Player configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player-control">Player control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="player_types.html">Player Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="record_control.html">Recorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="record_types.html">Recorder sinks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">Filers2 App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">The Filers2 API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">Filers2 User Guide</a> &raquo;</li>
+      <li>Player</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/player_control.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="player">
+<span id="player-root"></span><h1>Player<a class="headerlink" href="#player" title="Permalink to this heading"></a></h1>
+<p>Each player instance can be independently configured, played, and recorded from using the following controls.</p>
+<section id="player-configuration">
+<span id="player-config"></span><h2>Player configuration<a class="headerlink" href="#player-configuration" title="Permalink to this heading"></a></h2>
+<img alt="../_images/empty_player.png" src="../_images/empty_player.png" />
+<p>For a given player, one must first select the type of camera that will be used by the player. In the player bar click the camera type dropdown menu.</p>
+<img alt="../_images/player_selection_highlight.png" src="../_images/player_selection_highlight.png" />
+<p>This will list the available camera types. This example will use a WebCam!</p>
+<img alt="../_images/player_selection.png" src="../_images/player_selection.png" />
+<p>To configure the selected player, click the settings button. That will open the selected player’s settings.</p>
+<img alt="../_images/player_settings_highlight.png" src="../_images/player_settings_highlight.png" />
+<p>This specific player, supports either playing from a WebCam or replaying a video file. We’ll select the WebCam option.</p>
+<img alt="../_images/usb_player_640.png" src="../_images/usb_player_640.png" />
+<p>The player’s settings can also be pinned to the window.</p>
+<img alt="../_images/pin_settings.png" src="../_images/pin_settings.png" />
+<p>This will make it easier to configure and preview the camera.</p>
+<img alt="../_images/pinned_settings.png" src="../_images/pinned_settings.png" />
+</section>
+<section id="player-control">
+<h2>Player control<a class="headerlink" href="#player-control" title="Permalink to this heading"></a></h2>
+<p>Once configured, to start playing and previewing images from the camera, just press the play button.</p>
+<img alt="../_images/play_highlight.png" src="../_images/play_highlight.png" />
+<p>Camera images will now be streamed and displayed on the preview screen.</p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/f2LDUvpm3Is" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><p>If the picture needs to be re-oriented such as when the video camera is rotated, press the rotate button to visually rotate the picture in ninety degrees increments.</p>
+<img alt="../_images/rotate_pic_highlight.png" src="../_images/rotate_pic_highlight.png" />
+<p>This will only rotate the image on the preview screen, but does not rotate the recorded video images, however.</p>
+<img alt="../_images/player_playing_rotation.png" src="../_images/player_playing_rotation.png" />
+<img alt="../_images/player_playing_rotation2.png" src="../_images/player_playing_rotation2.png" />
+<p>When you’re done with playing the camera’s video, press the stop button to stop and close the camera.</p>
+<img alt="../_images/stop_playing_highlight.png" src="../_images/stop_playing_highlight.png" />
+<p>The last camera image will remain on screen.</p>
+<img alt="../_images/player_stopped.png" src="../_images/player_stopped.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="players.html" class="btn btn-neutral float-left" title="Managing players" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="player_types.html" class="btn btn-neutral float-right" title="Player Sources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

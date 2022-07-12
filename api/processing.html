@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Processing &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Video Player" href="recording.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Filers2
+            <img src="../_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../guide/guide.html">Filers2 User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">Filers2 App</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">The Filers2 API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="filers2.html">Filers2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="recording.html">Video Player</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Video Processing</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="api.html">The Filers2 API</a> &raquo;</li>
+      <li>Video Processing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/processing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-filers2.compression"><span id="filers2-compression-api"></span></span><section id="video-processing">
+<h1>Video Processing<a class="headerlink" href="#video-processing" title="Permalink to this heading"></a></h1>
+<p>Compresses video files previously recorded.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">filers2.compression.</span></span><span class="sig-name descname"><span class="pre">CompressionManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EventDispatcher</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.apply_config_property">
+<span class="sig-name descname"><span class="pre">apply_config_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager.apply_config_property" title="Permalink to this definition"></a></dt>
+<dd><p>(internal) used by the config system to set the sources.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.fraction_done">
+<span class="sig-name descname"><span class="pre">fraction_done</span></span><a class="headerlink" href="#filers2.compression.CompressionManager.fraction_done" title="Permalink to this definition"></a></dt>
+<dd><p>By memory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.get_config_property">
+<span class="sig-name descname"><span class="pre">get_config_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager.get_config_property" title="Permalink to this definition"></a></dt>
+<dd><p>(internal) used by the config system to get the list of config
+sources.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.increment_in_kivy_thread">
+<span class="sig-name descname"><span class="pre">increment_in_kivy_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager.increment_in_kivy_thread" title="Permalink to this definition"></a></dt>
+<dd><p>Schedules kivy to increment the property by the specified value in
+the kivy thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – The object with the property to increment</p></li>
+<li><p><strong>prop</strong> – The object property name to increment.</p></li>
+<li><p><strong>value</strong> – The value by which it will be incremented.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.process_queue_in_kivy_thread">
+<span class="sig-name descname"><span class="pre">process_queue_in_kivy_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">largs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager.process_queue_in_kivy_thread" title="Permalink to this definition"></a></dt>
+<dd><p>Method that is called in the kivy thread when
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">trigger_run_in_kivy</span></code> is triggered. It reads messages from the
+thread.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.CompressionManager.setattr_in_kivy_thread">
+<span class="sig-name descname"><span class="pre">setattr_in_kivy_thread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionManager.setattr_in_kivy_thread" title="Permalink to this definition"></a></dt>
+<dd><p>Schedules kivy to set the property of the object to the specified
+value in the kivy thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – The object with the property to be set.</p></li>
+<li><p><strong>prop</strong> – The object property name to set.</p></li>
+<li><p><strong>value</strong> – The value the property will be set to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="filers2.compression.CompressionWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">filers2.compression.</span></span><span class="sig-name descname"><span class="pre">CompressionWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.CompressionWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://kivy.org/doc/stable/api-kivy.uix.boxlayout.html#kivy.uix.boxlayout.BoxLayout" title="(in Kivy v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoxLayout</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="filers2.compression.MediaItemView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">filers2.compression.</span></span><span class="sig-name descname"><span class="pre">MediaItemView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.MediaItemView" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://kivy.org/doc/stable/api-kivy.uix.recycleview.views.html#kivy.uix.recycleview.views.RecycleKVIDsDataViewBehavior" title="(in Kivy v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RecycleKVIDsDataViewBehavior</span></code></a>, <a class="reference external" href="https://kivy.org/doc/stable/api-kivy.uix.gridlayout.html#kivy.uix.gridlayout.GridLayout" title="(in Kivy v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridLayout</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="filers2.compression.SourcePath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">filers2.compression.</span></span><span class="sig-name descname"><span class="pre">SourcePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#filers2.compression.CompressionManager" title="filers2.compression.CompressionManager"><span class="pre">CompressionManager</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.SourcePath" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">EventDispatcher</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.SourcePath.set_source">
+<span class="sig-name descname"><span class="pre">set_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.SourcePath.set_source" title="Permalink to this definition"></a></dt>
+<dd><p>May only be called from Kivy thread.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source</strong> – Source file/directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="filers2.compression.SourceWidget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">filers2.compression.</span></span><span class="sig-name descname"><span class="pre">SourceWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.SourceWidget" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://kivy.org/doc/stable/api-kivy.uix.boxlayout.html#kivy.uix.boxlayout.BoxLayout" title="(in Kivy v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BoxLayout</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="filers2.compression.SourceWidget.set_source">
+<span class="sig-name descname"><span class="pre">set_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#filers2.compression.SourceWidget.set_source" title="Permalink to this definition"></a></dt>
+<dd><p>Called by the GUI to set the filename.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="recording.html" class="btn btn-neutral float-left" title="Video Player" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Recorder sinks" href="guide/record_types.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Filers2
+            <img src="_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guide/guide.html">Filers2 User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies-installation-on-ubuntu">Dependencies installation on Ubuntu</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-apt-dependencies">Install the apt dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-a-virtual-env-for-the-project">Make a virtual env for the project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-manual-python-dependencies">Install manual python dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies-installation-on-windows">Dependencies installation on Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Make a virtual env for the project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Install manual python dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Install Filers2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">Filers2 App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/api.html">The Filers2 API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<span id="install-filers2"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<p>Filers2 can be found at <a class="reference external" href="https://github.com/matham/filers2">https://github.com/matham/filers2</a>. The following instructions is to install Filers2 from source.
+You can find a compiled Filers2 executable for Windows on the
+<a class="reference external" href="https://github.com/matham/filers2/releases">release page</a>. To find the executable for the latest development
+version of Filers2, download it from the <a class="reference external" href="https://github.com/matham/filers2/actions">last action</a> run.</p>
+<section id="dependencies-installation-on-ubuntu">
+<h2>Dependencies installation on Ubuntu<a class="headerlink" href="#dependencies-installation-on-ubuntu" title="Permalink to this heading"></a></h2>
+<p>Following is a step by step example installation of Filers2 dependencies on Ubunutu 18.04.</p>
+<section id="install-the-apt-dependencies">
+<h3>Install the apt dependencies<a class="headerlink" href="#install-the-apt-dependencies" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3</span> <span class="pre">python3-dev</span> <span class="pre">python3-pip</span></code>.</p></li>
+</ul>
+</section>
+<section id="make-a-virtual-env-for-the-project">
+<h3>Make a virtual env for the project<a class="headerlink" href="#make-a-virtual-env-for-the-project" title="Permalink to this heading"></a></h3>
+<p>We’ll make the virtual env in home:</p>
+<ul class="simple">
+<li><p>Install update pip/virtualenv <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">--user</span> <span class="pre">pip</span> <span class="pre">virtualenv</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code>.</p></li>
+<li><p>Make the virtualenv <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">virtualenv</span> <span class="pre">filers2_venv</span></code>.</p></li>
+<li><p>Activate it <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">filers2_venv/bin/activate</span></code>. You’ll have to do this every time you start a new terminal.</p></li>
+</ul>
+</section>
+<section id="install-manual-python-dependencies">
+<h3>Install manual python dependencies<a class="headerlink" href="#install-manual-python-dependencies" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>If using a <strong>Flir camera</strong>, on linux we must manually install its libraries</p>
+<ul>
+<li><p>Get it from <a class="reference external" href="https://www.flir.com/products/flycapture-sdk">here</a>, extract it and install by running <code class="docutils literal notranslate"><span class="pre">install_flycapture.sh</span></code>.</p></li>
+<li><p>Figure out your python version, find the appropriate linux wheel of the last release
+<a class="reference external" href="https://github.com/matham/pyflycap2/releases">here</a> and install e.g. with
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">https://github.com/matham/pyflycap2/releases/download/v0.3.0/pyflycap2-0.3.0-cp36-cp36m-linux_x86_64.whl</span></code>.</p></li>
+<li><p>If successful, you should be able to run
+<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-c</span> <span class="pre">'from</span> <span class="pre">pyflycap2.interface</span> <span class="pre">import</span> <span class="pre">CameraContext;</span> <span class="pre">cc</span> <span class="pre">=</span> <span class="pre">CameraContext();</span> <span class="pre">cc.rescan_bus();</span> <span class="pre">print(cc.get_gige_cams())'</span></code>
+and it’ll print a list of the serial numbers of all the connected cameras.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="dependencies-installation-on-windows">
+<h2>Dependencies installation on Windows<a class="headerlink" href="#dependencies-installation-on-windows" title="Permalink to this heading"></a></h2>
+<p>Following is a step by step example installation of Filers2 dependencies on Windows 10.</p>
+<section id="id2">
+<h3>Make a virtual env for the project<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>Starting with Python and git available on the terminal, we’ll first make the virtual env in the home
+directory. The terminal should be in the home directory</p>
+<ul class="simple">
+<li><p>Install update pip/virtualenv <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">pip</span> <span class="pre">virtualenv</span></code>.</p></li>
+<li><p>Make the virtualenv <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">virtualenv</span> <span class="pre">filers2_venv</span></code>.</p></li>
+<li><p>Activate it <code class="docutils literal notranslate"><span class="pre">filers2_venv\Scripts\activate</span></code>. You’ll have to do this every time you start a new terminal.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Install manual python dependencies<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>If using a <strong>Flir camera</strong> install with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">rotpy</span></code>.</p>
+<ul>
+<li><p>If successful, you should be able to run
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;from</span> <span class="pre">pyflycap2.interface</span> <span class="pre">import</span> <span class="pre">CameraContext;</span> <span class="pre">cc</span> <span class="pre">=</span> <span class="pre">CameraContext();</span> <span class="pre">cc.rescan_bus();</span> <span class="pre">print(cc.get_gige_cams())&quot;</span></code>
+and it’ll print a list of the serial numbers of all the connected cameras.</p></li>
+</ul>
+</li>
+<li><p>If using a <strong>Thor camera</strong> install with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">thorcam</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h2>Install Filers2<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<p>With the dependencies installed, you can simply install filter2 with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">filers2</span>
+</pre></div>
+</div>
+<p>Once installed, filers2 can be run either with the <code class="docutils literal notranslate"><span class="pre">filers2</span></code> command or by directly running
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">filers2/run_app.py</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guide/record_types.html" class="btn btn-neutral float-left" title="Recorder sinks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

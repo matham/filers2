@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Managing players &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Player" href="player_control.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Filers2
+            <img src="../_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">Filers2 User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Managing players</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-removing-players">Adding/removing players</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#players-layout">Players layout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="player_control.html">Player</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_types.html">Player Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="record_control.html">Recorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="record_types.html">Recorder sinks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">Filers2 App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">The Filers2 API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">Filers2 User Guide</a> &raquo;</li>
+      <li>Managing players</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/players.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="managing-players">
+<h1>Managing players<a class="headerlink" href="#managing-players" title="Permalink to this heading"></a></h1>
+<p>Filers2 can be configured with one or more “players” at any given time. A <a class="reference internal" href="player_control.html#player-root"><span class="std std-ref">player</span></a> instance is associated with exactly one <a class="reference internal" href="player_types.html#player-type"><span class="std std-ref">video source</span></a>, such as a camera, a streaming server, or a video file on disk. The player will display this video and can be configured to stream it out to a <a class="reference internal" href="record_control.html#recorder-control"><span class="std std-ref">recorder</span></a>.</p>
+<section id="adding-removing-players">
+<h2>Adding/removing players<a class="headerlink" href="#adding-removing-players" title="Permalink to this heading"></a></h2>
+<p>More than one video player can be playing at any time. To add a new player, press the add player button.</p>
+<img alt="../_images/add_add_player_highlight.png" src="../_images/add_add_player_highlight.png" />
+<p>This will add a new independent player on screen.</p>
+<img alt="../_images/2_players_vertical.png" src="../_images/2_players_vertical.png" />
+<p>If a player is not needed anymore, it can be deleted from the grid by pressing the trash button. This will delete the player.</p>
+<img alt="../_images/delete_player.png" src="../_images/delete_player.png" />
+</section>
+<section id="players-layout">
+<h2>Players layout<a class="headerlink" href="#players-layout" title="Permalink to this heading"></a></h2>
+<p>The arrangements of the players in the grid can be changed, by changing the grid parameters.</p>
+<img alt="../_images/column_selection_highlight.png" src="../_images/column_selection_highlight.png" />
+<p>For example it can be set to two columns with as many rows as needed. E.g. if there are 10 players, it’ll be displayed as 5 rows and 2 columns.</p>
+<img alt="../_images/2_players_horizontal.png" src="../_images/2_players_horizontal.png" />
+<p>We can add as many players as needed.</p>
+<img alt="../_images/3players.png" src="../_images/3players.png" />
+<img alt="../_images/4players.png" src="../_images/4players.png" />
+<p>Other grid arrangements is also supported; such as n x 3 columns.</p>
+<img alt="../_images/4players_cols.png" src="../_images/4players_cols.png" />
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="player_control.html" class="btn btn-neutral float-right" title="Player" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

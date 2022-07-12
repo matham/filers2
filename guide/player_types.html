@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player Sources &mdash; Filers2  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Recorder" href="record_control.html" />
+    <link rel="prev" title="Player" href="player_control.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Filers2
+            <img src="../_static/filers2_icon.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="guide.html">Filers2 User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="players.html">Managing players</a></li>
+<li class="toctree-l2"><a class="reference internal" href="player_control.html">Player</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Player Sources</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#webcam-or-video-file-stream">WebCam or Video file/stream</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#webcam">WebCam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#video-file-stream">Video file/stream</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#network">Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thor">Thor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flir">Flir</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="record_control.html">Recorder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="record_types.html">Recorder sinks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app.html">Filers2 App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/api.html">The Filers2 API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Filers2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="guide.html">Filers2 User Guide</a> &raquo;</li>
+      <li>Player Sources</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guide/player_types.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="player-sources">
+<span id="player-type"></span><h1>Player Sources<a class="headerlink" href="#player-sources" title="Permalink to this heading"></a></h1>
+<p>Filers2 supports multiple camera types and media sources for each player. Examples are webcams, webstreams, Flir cameras or Thor cameras.</p>
+<p>Following is an overview of each of them. Each source can be selected in the <a class="reference internal" href="player_control.html#player-config"><span class="std std-ref">player dropdown menu</span></a>.</p>
+<section id="webcam-or-video-file-stream">
+<h2>WebCam or Video file/stream<a class="headerlink" href="#webcam-or-video-file-stream" title="Permalink to this heading"></a></h2>
+<section id="webcam">
+<h3>WebCam<a class="headerlink" href="#webcam" title="Permalink to this heading"></a></h3>
+<p>Filers supports playing many USB WebCams. To use it, select the “USB-cam” option in the settings.</p>
+<img alt="../_images/usb_blank.png" src="../_images/usb_blank.png" />
+<p>Click the refresh button to refresh the list of available webcams.</p>
+<img alt="../_images/usb_refresh_highlight.png" src="../_images/usb_refresh_highlight.png" />
+<p>The first webcam should be automatically selected.</p>
+<img alt="../_images/usb_refresh.png" src="../_images/usb_refresh.png" />
+<p>Select your webcam from the dropdown list of cameras</p>
+<img alt="../_images/usb_webcam_list.png" src="../_images/usb_webcam_list.png" />
+<section id="camera-options">
+<h4>Camera options<a class="headerlink" href="#camera-options" title="Permalink to this heading"></a></h4>
+<p>Each camera supports a specific combination of image sizes, pixel formats, and frame rates.</p>
+<p>Click the cam options to show the list of supported image formats.</p>
+<img alt="../_images/usb_image_opts.png" src="../_images/usb_image_opts.png" />
+<p>The typical structure is of each item is: the picture size in <strong>width x height</strong>, the <strong>pixel format</strong> of the image, and the supported <strong>frame rate</strong> range.</p>
+<p>Typical pixel formats are <a class="reference external" href="https://en.wikipedia.org/wiki/RGB_color_model">rgb</a> or
+<a class="reference external" href="https://en.wikipedia.org/wiki/YUV">yuv</a>. RGB tends to use more space to represent the image, so yuv is often preferred when space is limited or writing to disk is a bottleneck.</p>
+<p>640x480 is a good default frame size.</p>
+<img alt="../_images/usb_player_640.png" src="../_images/usb_player_640.png" />
+<p>The options above are used to configure the camera. However, the player supports converting the images to a different size or format <em>after receiving it</em> from the camera. If the pixel format, width, or height fields are left blank, the camera image will be used directly; fill in these fields to specify a different value.</p>
+<p>The <strong>frame rate (fps)</strong> range indicates the frame rates supported for each configuration. By default it will use the largest frame rate for that configuration. However, if the system is not able to stream as quickly, frames will be dropped and the effective frame rate will be less. When recording to a <strong>mkv</strong> file format (<strong>the default</strong>), the frame rate does not matter because frame timestamp are recorded as received by the player. Many other formats however (e.g. mp4), can only record frame timestamps as integer multiples of the period (<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">fps</span></code>) so timestamps are forced to these values when recorded. This can lead to timestamp collision or padded frames. So when using e.g. mp4, the lowest practical frame rate that can be maintained by the camera, as shown in the player status while the camera is playing, should be used.</p>
+<p>Once the camera is playing, a estimate of the frame rate and the data rate (space required to save the raw images for each second) is shown at the top of the settings. Examples of different frame sizes are shown below. Notice that at very large frames sizes, the frame rate is significantly reduced in order for the camera to maintain a similar data rate.</p>
+<img alt="../_images/usb_cam_size1.png" src="../_images/usb_cam_size1.png" />
+<img alt="../_images/usb_cam_size2.png" src="../_images/usb_cam_size2.png" />
+<img alt="../_images/usb_cam_size3.png" src="../_images/usb_cam_size3.png" />
+<img alt="../_images/usb_cam_size4.png" src="../_images/usb_cam_size4.png" />
+</section>
+</section>
+<section id="video-file-stream">
+<h3>Video file/stream<a class="headerlink" href="#video-file-stream" title="Permalink to this heading"></a></h3>
+<p>The player also supported playing from a video file, webstream, or other non-typical sources.</p>
+<img alt="../_images/play_file.png" src="../_images/play_file.png" />
+<p>For example a file can be selected using the browse button or typed into the filename field and the file will be played.</p>
+<img alt="../_images/play_file_filename.png" src="../_images/play_file_filename.png" />
+<p>The other options are useful when playing other sources, e.g. a webstream.</p>
+<p>For example to play the webstream at <code class="docutils literal notranslate"><span class="pre">rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov</span></code>,
+use that as the filename and select <code class="docutils literal notranslate"><span class="pre">rtsp</span></code> as the <code class="docutils literal notranslate"><span class="pre">Media</span> <span class="pre">Format</span></code>.</p>
+<img alt="../_images/play_webstream.png" src="../_images/play_webstream.png" />
+<p>The other options can be similarly specified as needed.</p>
+</section>
+</section>
+<section id="network">
+<h2>Network<a class="headerlink" href="#network" title="Permalink to this heading"></a></h2>
+<p>The network player allows you to play video from another Filers2 instance that is streaming it video to the network.
+This player is able to play that stream.</p>
+<p>E.g. consider a computer that is connected to the camera, but is unable to store the video. A good option is to then stream the video to another computer over the network, and the other computer will save it as needed. The configuration is then to make the camera connected computer be a “network recorder” and select “Network” as the player source in the other computer.</p>
+<p>Before it can be played, the appropriate network address of the streaming computer and the port it’s streaming on must be specified. Then, once “open connection” is pressed and the connection succeeded, the player is ready to play.</p>
+<p>See the recording documentation for more details.</p>
+<img alt="../_images/network_play.png" src="../_images/network_play.png" />
+</section>
+<section id="thor">
+<h2>Thor<a class="headerlink" href="#thor" title="Permalink to this heading"></a></h2>
+</section>
+<section id="flir">
+<h2>Flir<a class="headerlink" href="#flir" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="player_control.html" class="btn btn-neutral float-left" title="Player" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="record_control.html" class="btn btn-neutral float-right" title="Recorder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

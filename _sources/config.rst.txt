@@ -1,0 +1,96 @@
+FILERS2 Config
+==============
+
+The following are the configuration options provided by the app. It can be configured by changing appropriate values in the ``config.yaml`` settings file. The options default to the default value of the classes for each of the options.
+
+`inspect`:
+ Default value::
+
+  false
+
+ Enables GUI inspection. If True, it is activated by hitting ctrl-e in
+ the GUI.
+
+`player_id_counter`:
+ Default value::
+
+  0
+
+
+`player_num_cols`:
+ Default value::
+
+  1
+
+ The number of columns used by the grid displaying all the players.
+ If empty, :attr:`player_num_rows` must be set to a number, and then the
+ columns will be auto-computed from the number of players added.
+
+`player_num_rows`:
+ Default value::
+
+  null
+
+ The number of rows used by the grid displaying all the players.
+ If empty, :attr:`player_num_cols` must be set to a number, and then the
+ rows will be auto-computed from the number of players added.
+
+
+recording
+---------
+
+
+compression
+-----------
+
+`ffmpeg_disable_audio`:
+ Default value::
+
+  true
+
+
+`ffmpeg_num_threads`:
+ Default value::
+
+  0
+
+
+`ffmpeg_vcodec`:
+ Default value::
+
+  libx264
+
+
+`ffmpeg_vcodec_opts`:
+ Default value::
+
+  - -preset
+  - medium
+  - -crf
+  - '17'
+
+
+`match_suffix`:
+ Default value::
+
+  .mkv
+
+
+`sources`:
+ Default value::
+
+  []
+
+
+`target_root`:
+ Default value::
+
+  ''
+
+
+`target_suffix`:
+ Default value::
+
+  .mkv
+
+
