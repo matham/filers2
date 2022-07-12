@@ -22,6 +22,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 
 from more_kivy_app.config import apply_config
+import base_kivy_app.graphics  # required to load kv
 
 from cpl_media.rotpy import FlirPlayer, FlirSettingsWidget
 from cpl_media.ffmpeg import FFmpegPlayer, FFmpegSettingsWidget
