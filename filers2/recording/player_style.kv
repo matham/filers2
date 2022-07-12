@@ -42,7 +42,7 @@
                     text_size: self.size
 
 
-<RecorderSettingsDropdown@FlatDropDown>:
+<RecorderSettingsDropdown>:
     flat_color: app.theme.primary_text
     flat_border_color: app.theme.divider
     do_scroll: False, False
@@ -79,22 +79,33 @@
                     text: root.recorder_summery
                     shorten: True
                     text_size: self.size
-            BoxLayout:
+            GridLayout:
                 size_hint_y: None
                 height: self.minimum_height
                 size_hint_min_x: self.minimum_width
-                spacing: '5dp'
-                padding: 0, '5dp', 0, 0
+                padding: '5dp'
+                spacing: '10dp'
+                cols: 2
+                disabled: not root.recorder or root.recorder.record_state != 'none'
                 ThemedSizedLabel:
-                    text: 'Records with player #'
+                    text: 'Records with player #:'
                     bold: True
                 ThemedSpinner:
                     text_autoupdate: False
-                    size_hint_x: None
-                    width: self.minimum_width
+                    size_hint_min_x: max(self.minimum_width, dp(50))
                     values: ['none'] +  [str(pid) for pid in app.players_widget.player_id_mapping if pid is not root.player.player_id] if root.player else []
                     text: str(root.player.records_with) if root.player and app.players_widget.player_id_mapping and root.player.records_with != -1 else 'none'  # force update with player_id_mapping, otherwise restoring doesn't update
-                    on_text: root.player.records_with = -1 if self.text == 'none' else int(self.text)
+                    on_text: app.players_widget.set_records_with(root.player, -1 if self.text == 'none' else int(self.text))
+                ThemedSizedLabel:
+                    text: 'Recording duration:'
+                FlatSizedTextInput:
+                    text: str(root.recorder.requested_record_duration) if root.recorder and root.recorder.requested_record_duration else ''
+                    background_color: app.theme.primary_light
+                    hint_text: 'optional'
+                    input_filter: 'float'
+                    size_hint_min_x: '60dp'
+                    padding: 0
+                    on_focus: if not self.focus: root.recorder.requested_record_duration = float(self.text or 0)
 
 
 <PlayerWidget>:
@@ -261,6 +272,7 @@
         RecorderSettingsDropdown:
             id: image_file
             player: root.player
+            recorder: root.player.image_file_recorder
             size_recorded: root.player.image_file_recorder.size_recorded
             data_rate: root.player.image_file_recorder.data_rate
             frames_skipped: root.player.image_file_recorder.frames_skipped
@@ -271,6 +283,7 @@
         RecorderSettingsDropdown:
             id: video
             player: root.player
+            recorder: root.player.video_recorder
             size_recorded: root.player.video_recorder.size_recorded
             data_rate: root.player.video_recorder.data_rate
             frames_skipped: root.player.video_recorder.frames_skipped
@@ -281,6 +294,7 @@
         RecorderSettingsDropdown:
             id: server
             player: root.player
+            recorder: root.player.server_recorder
             size_recorded: root.player.server_recorder.size_recorded
             data_rate: root.player.server_recorder.data_rate
             frames_skipped: root.player.server_recorder.frames_skipped

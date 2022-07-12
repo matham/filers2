@@ -15,6 +15,7 @@ from kivy.event import EventDispatcher
 from kivy.properties import BooleanProperty, NumericProperty, StringProperty, \
     ObjectProperty, ListProperty, DictProperty
 from kivy.clock import Clock
+from kivy.factory import Factory
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
@@ -35,6 +36,7 @@ from cpl_media.recorder import ImageFileRecorder, VideoRecorder, \
 from cpl_media.remote.server import RemoteVideoRecorder, \
     RemoteRecordSettingsWidget
 from cpl_media.recorder import BaseRecorder
+from cpl_media import error_guard
 
 __all__ = ('FilersPlayer', 'PlayerWidget', 'PlayersContainerWidget')
 
@@ -269,15 +271,20 @@ class PlayersContainerWidget(GridLayout):
 
     player_id_mapping: Dict[int, FilersPlayer] = DictProperty({})
 
+    player_id_connection = {}
+
+    def _recorder_state_callback(self, player, recorder, value):
+        if value == 'stopping' or value == 'none':
+            self.stop_recording(player)
+
+    @error_guard
     def apply_config_child(self, name, prop, obj, config):
         if prop != 'players':
             apply_config(obj, config)
             return
 
         while len(config) < len(self.players):
-            player = self.players.pop()
-            self.remove_widget(player.player_widget)
-            player.clean_up()
+            self.remove_player(next(reversed(self.players)))
 
         while len(config) > len(self.players):
             self.add_player()
@@ -285,30 +292,78 @@ class PlayersContainerWidget(GridLayout):
         for player, config in zip(self.players, config):
             apply_config(player, config)
 
-        self.recompute_player_id_mapping()
+        self.update_player_connections()
 
         return True
 
-    def recompute_player_id_mapping(self):
-        self.player_id_mapping = {p.player_id: p for p in self.players}
+    def update_player_connections(self):
+        mapping = self.player_id_mapping = {
+            p.player_id: p for p in self.players}
 
+        def get_index(groups, item):
+            for i, group in enumerate(groups):
+                if item in group:
+                    return i
+            return None
+
+        partitions = []
+        for player in self.players:
+            player_i = get_index(partitions, player.player_id)
+            if player.records_with == -1 or player.records_with not in mapping:
+                if player_i is None:
+                    partitions.append({player.player_id})
+                continue
+
+            with_i = get_index(partitions, player.records_with)
+            if player_i == with_i:
+                if player_i is None:
+                    partitions.append({player.player_id, player.records_with})
+            elif player_i is None:
+                partitions[with_i].add(player.player_id)
+            elif with_i is None:
+                partitions[player_i].add(player.records_with)
+            else:
+                partitions[player_i].update(partitions[with_i])
+                del partitions[with_i]
+
+        connections = {}
+        for partition in partitions:
+            for item in partition:
+                connections[item] = [i for i in partition if i != item]
+        self.player_id_connection = connections
+
+    @error_guard
     def start_recording(self, player: FilersPlayer):
-        seen = set()
         mapping = self.player_id_mapping
+        connected = self.player_id_connection[player.player_id]
+        player.recorder.fbind(
+            'record_state', self._recorder_state_callback, player)
+        player.recorder.record(player.player)
 
-        while player is not None and player not in seen:
-            player.recorder.record(player.player)
-            seen.add(player)
-            player = mapping.get(player.records_with, None)
+        for player_id in connected:
+            player = mapping[player_id]
+            if player.recorder.record_state == 'none':
+                player.recorder.fbind(
+                    'record_state', self._recorder_state_callback, player)
+                player.recorder.record(player.player)
 
+    @error_guard
     def stop_recording(self, player: FilersPlayer):
-        seen = set()
         mapping = self.player_id_mapping
+        connected = self.player_id_connection[player.player_id]
+        player.recorder.funbind(
+            'record_state', self._recorder_state_callback, player)
+        player.recorder.stop()
 
-        while player is not None and player not in seen:
+        for player_id in connected:
+            player = mapping[player_id]
+            player.recorder.funbind(
+                'record_state', self._recorder_state_callback, player)
             player.recorder.stop()
-            seen.add(player)
-            player = mapping.get(player.records_with, None)
+
+    def set_records_with(self, player, value):
+        player.records_with = value
+        self.update_player_connections()
 
     def add_player(self, player_id=0):
         player = FilersPlayer(player_id=player_id)
@@ -318,18 +373,23 @@ class PlayersContainerWidget(GridLayout):
         self.add_widget(widget)
         self.players.append(player)
 
-        self.recompute_player_id_mapping()
+        self.update_player_connections()
 
     def remove_player(self, player: FilersPlayer):
         self.remove_widget(player.player_widget)
         self.players.remove(player)
         player.clean_up()
 
-        self.recompute_player_id_mapping()
+        self.update_player_connections()
 
     def clean_up(self):
         for player in self.players:
             player.clean_up()
+
+
+class RecorderSettingsDropdown(Factory.FlatDropDown):
+
+    recorder = ObjectProperty(None, rebind=True)
 
 
 Builder.load_file(join(dirname(__file__), 'player_style.kv'))
